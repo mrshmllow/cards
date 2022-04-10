@@ -24,7 +24,8 @@ class Client {
 
   static textureLoader = new TextureLoader();
   static tooltipElement = document.getElementById("tooltip")!;
-  static refresh = true;
+  static refreshMeshes = true;
+  static refreshTooltips = true;
 
   constructor() {
     this.scene = new Scene();
@@ -73,6 +74,28 @@ class Client {
     this.pointer = new Vector2();
   }
 
+  refreshTooltips() {
+    client.raycaster.setFromCamera(client.pointer, client.camera);
+    const intersects = client.raycaster.intersectObjects(client.scene.children);
+
+    if (intersects.length === 0) {
+      Client.tooltipElement.querySelector("#header")!.innerHTML = "";
+      Client.tooltipElement.querySelector("#text")!.innerHTML = "";
+    } else {
+      for (let i = 0; i < intersects.length; i++) {
+        const object = intersects[i].object;
+
+        const tooltip = client.game.hover(object.uuid);
+        if (tooltip !== false) {
+          Client.tooltipElement.querySelector("#header")!.innerHTML =
+            tooltip.header;
+          Client.tooltipElement.querySelector("#text")!.innerHTML =
+            tooltip.text;
+        }
+      }
+    }
+  }
+
   private refresh() {
     const current = this.scene.children;
     const inWorld = this.game.getMeshes();
@@ -99,9 +122,14 @@ class Client {
       requestAnimationFrame(loop);
       const delta = this.clock.getDelta();
 
-      if (Client.refresh) {
+      if (Client.refreshMeshes) {
         this.refresh();
-        Client.refresh = false;
+        Client.refreshMeshes = false;
+      }
+
+      if (Client.refreshTooltips) {
+        this.refreshTooltips();
+        Client.refreshTooltips = false;
       }
 
       this.game.animate(delta);
@@ -125,24 +153,7 @@ addEventListener("pointermove", (event) => {
   Client.tooltipElement.style.top = `${event.clientY + 15}px`;
   Client.tooltipElement.style.left = `${event.clientX + 15}px`;
 
-  client.raycaster.setFromCamera(client.pointer, client.camera);
-  const intersects = client.raycaster.intersectObjects(client.scene.children);
-
-  if (intersects.length === 0) {
-    Client.tooltipElement.querySelector("#header")!.innerHTML = "";
-    Client.tooltipElement.querySelector("#text")!.innerHTML = "";
-  } else {
-    intersects.forEach((intersection) => {
-      const object = intersection.object;
-
-      const tooltip = client.game.hover(object.uuid);
-      if (tooltip !== false) {
-        Client.tooltipElement.querySelector("#header")!.innerHTML =
-          tooltip.header;
-        Client.tooltipElement.querySelector("#text")!.innerHTML = tooltip.text;
-      }
-    });
-  }
+  client.refreshTooltips();
 });
 
 addEventListener("mouseup", () => {

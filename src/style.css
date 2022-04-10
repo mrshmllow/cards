@@ -12,7 +12,7 @@ canvas {
   position: absolute;
   color: white;
   background-color: black;
-  padding: 2px;
+  /* padding: 2px; */
 
   display: flex;
   flex-direction: column;

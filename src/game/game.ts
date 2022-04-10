@@ -31,9 +31,11 @@ class Game implements MultiMesh, Animatable {
     if (this.deck.click(uuid)) {
       const next = this.deck.getNextCard();
 
+      Client.refreshTooltips = true;
+
       if (next) {
         this.players[0].addCard(next);
-        Client.refresh = true;
+        Client.refreshMeshes = true;
       }
     }
   }

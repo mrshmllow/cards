@@ -15,7 +15,7 @@ export class Card implements SingleMesh, Animatable, Clickable, Hoverable {
 
   private animations: AnimationManager;
 
-  private type: CardTypes;
+  type: CardTypes;
   status: CardStatus;
 
   tooltip!: Tooltip;
