@@ -1,0 +1,23 @@
+body {
+  margin: 0;
+}
+
+canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+.tooltip {
+  position: absolute;
+  color: white;
+  background-color: black;
+  padding: 2px;
+
+  display: flex;
+  flex-direction: column;
+}
+
+#header {
+  font-weight: bold;
+}
