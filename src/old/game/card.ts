@@ -1,8 +1,8 @@
 import { Mesh, PlaneGeometry, Vector3 } from "three";
 import SingleMesh from "../generics/SingleMesh";
 import Animatable from "../generics/Animatiable";
-import Animation from "../animation/Animation";
-import AnimationManager from "../animation/AnimationManager";
+import Animation from "../../animation/Animation";
+import AnimationManager from "../../animation/AnimationManager";
 import Clickable from "../generics/Clickable";
 import { CardStatus, CardTypes } from "./cards/card_types";
 import Hoverable from "../generics/Hoverable";
