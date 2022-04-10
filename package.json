@@ -8,16 +8,18 @@
     "preview": "vite preview"
   },
   "devDependencies": {
+    "@rollup/plugin-alias": "^3.1.9",
     "@types/lodash": "^4.14.181",
+    "@types/react": "^18.0.1",
     "@types/three": "^0.139.0",
-    "@typescript-eslint/eslint-plugin": "latest",
-    "@typescript-eslint/parser": "latest",
     "typescript": "^4.6.3",
     "vite": "^2.9.0"
   },
   "packageManager": "yarn@3.2.0",
   "dependencies": {
+    "@react-three/fiber": "^8.0.10",
     "lodash": "^4.17.21",
+    "preact": "^10.7.1",
     "three": "^0.139.2"
   }
 }
