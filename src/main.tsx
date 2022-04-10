@@ -1,9 +1,10 @@
-import { render } from "preact";
+import Game from "./game/game";
+import { createRoot } from "react-dom/client";
+import "./style.css";
 import { Canvas } from "@react-three/fiber";
 
-render(
+createRoot(document.getElementById("root")!).render(
   <Canvas>
-    <ambientLight />
-  </Canvas>,
-  document.body
+    <Game />
+  </Canvas>
 );

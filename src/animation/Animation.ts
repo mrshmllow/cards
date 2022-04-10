@@ -1,12 +1,15 @@
-import { MeshBasicMaterial, NearestFilter, Texture } from "three";
-import Animatable from "../generics/Animatiable";
-import Client from "../main";
+import {
+  MeshBasicMaterial,
+  NearestFilter,
+  Texture,
+  TextureLoader,
+} from "three";
 
-class Animation implements Animatable {
+class Animation {
   currentFrame = 0;
   private frames;
   private loop = false;
-  private playing = false;
+  playing = false;
   private ticks = 0;
 
   private loadedTextures: Texture[] = [];
@@ -28,8 +31,10 @@ class Animation implements Animatable {
 
     this.loop = loop;
 
+    const loader = new TextureLoader();
+
     for (var frame = 0; frame < this.frames; frame++) {
-      this.loadedTextures.push(Client.textureLoader.load(resolve(frame)));
+      this.loadedTextures.push(loader.load(resolve(frame)));
       this.loadedTextures[frame].magFilter = NearestFilter;
 
       this.materials.push(
@@ -57,18 +62,6 @@ class Animation implements Animatable {
     }
   }
 
-  play() {
-    this.playing = true;
-  }
-
-  pause() {
-    this.playing = false;
-  }
-
-  reset() {
-    this.currentFrame = 0;
-  }
-
   ended() {
     if (this.currentFrame === this.frames - 1 && !this.loop) {
       return true;
@@ -79,14 +72,6 @@ class Animation implements Animatable {
 
   material() {
     return this.materials[this.currentFrame];
-  }
-
-  isPlaying() {
-    return this.playing;
-  }
-
-  static pathSafeFrame(frame: number) {
-    return frame + 1;
   }
 }
 

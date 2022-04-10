@@ -1,4 +1,4 @@
-import Animatable from "../generics/Animatiable";
+import Animatable from "../old/generics/Animatiable";
 import Animation from "./Animation";
 
 class AnimationManager implements Animatable {
