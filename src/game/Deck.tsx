@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import { BufferGeometry, Material, Mesh } from "three";
 import { degToRad } from "three/src/math/MathUtils";
-import Animation from "../animation/AnimationComponent";
+import Animation from "../animation/Animation";
 import useStore from "../state";
 import { CardTypes } from "../types/card_types";
 

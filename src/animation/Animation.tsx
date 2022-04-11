@@ -1,79 +1,51 @@
-import { useLoader } from "@react-three/fiber";
-import {
-  MeshBasicMaterial,
-  NearestFilter,
-  Texture,
-  TextureLoader,
-} from "three";
+import { useEffect, useMemo, useState } from "react";
+import { NearestFilter, TextureLoader } from "three";
 
-class Animation {
-  currentFrame = 0;
-  private frames;
-  private loop = false;
-  playing = false;
-  private ticks = 0;
+const Animation: React.FC<{
+  frames: number;
+  frame: number;
+  resolve: (frame: number) => string;
+  playing: boolean;
+  loop: boolean;
+}> = ({ frame: currentFrame, frames, playing, loop, resolve }) => {
+  const loader = new TextureLoader();
 
-  private loadedTextures: Texture[] = [];
-  materials: MeshBasicMaterial[] = [];
+  const textures = useMemo(() => {
+    const textures = [];
+    for (let i = 0; i < frames; i++) {
+      const texture = loader.load(resolve(i));
+      texture.magFilter = NearestFilter;
 
-  /**
-   * @param frames number of frames
-   * @param currentFrame 0 indexed starting frame
-   * @param resolve given a path-safe frame, what would the path be?
-   */
-  constructor(
-    frames: number,
-    currentFrame: number,
-    resolve: (frame: number) => string,
-    loop = false
-  ) {
-    this.frames = frames;
-    this.currentFrame = currentFrame;
-
-    this.loop = loop;
-
-    for (var frame = 0; frame < this.frames; frame++) {
-      this.loadedTextures.push(useLoader(TextureLoader, resolve(frame)));
-      this.loadedTextures[frame].magFilter = NearestFilter;
-
-      this.materials.push(
-        new MeshBasicMaterial({
-          map: this.loadedTextures[frame],
-          transparent: true,
-        })
-      );
+      textures.push(texture);
     }
-  }
 
-  animate(delta: number) {
-    this.ticks += delta;
+    return textures;
+  }, []);
 
-    if (this.playing && this.ticks >= 0.1) {
-      this.ticks = 0;
+  const [frame, setFrame] = useState(currentFrame);
 
-      if (this.currentFrame + 1 === this.frames) {
-        if (this.loop) {
-          this.currentFrame = 0;
-        }
-      } else {
-        this.currentFrame += 1;
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (playing) {
+        setFrame((frame) => {
+          if (frame + 1 === frames) {
+            if (loop) {
+              return 0;
+            }
+          } else {
+            return frame + 1;
+          }
+          return frame;
+        });
       }
-    }
+    }, 100);
 
-    return this.currentFrame;
-  }
+    return () => clearInterval(interval);
+  }, []);
 
-  ended() {
-    if (this.currentFrame === this.frames - 1 && !this.loop) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-
-  material() {
-    return this.materials[this.currentFrame];
-  }
-}
+  return (
+    <meshBasicMaterial args={[{ transparent: true }]} map={textures[frame]} />
+  );
+};
 
 export default Animation;
