@@ -1,17 +1,10 @@
 import { useLoader } from "@react-three/fiber";
 import { useEffect, useRef, useState } from "react";
 import { NearestFilter, Texture, TextureLoader } from "three";
-import Animation from "../animation/Animation";
+import Animation from "../animation/AnimationComponent";
 
 const Deck: React.FC<{}> = () => {
   const ref = useRef();
-  const animation = new Animation(
-    19,
-    0,
-    (frame) => `/assets/card/explosion${frame}.png`,
-    true
-  );
-  animation.playing = true;
 
   const textures: Texture[] = [];
   const materials: JSX.Element[] = [];
@@ -41,11 +34,12 @@ const Deck: React.FC<{}> = () => {
     <mesh>
       <planeGeometry args={[18 / 2, 25 / 2]} />
 
-      {/* <meshBasicMaterial args={[{ transparent: true, map: textures[13] }]} /> */}
-      <meshBasicMaterial
-        ref={ref}
-        args={[{ transparent: true }]}
-        map={textures[frame]}
+      <Animation
+        currentFrame={0}
+        frames={19}
+        resolve={(frame) => `/assets/card/explosion${frame}.png`}
+        loop={true}
+        playing={true}
       />
     </mesh>
   );
