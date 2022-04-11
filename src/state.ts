@@ -69,7 +69,7 @@ const useStoreBase = create<GameState>((set) => ({
   },
 
   deck: {
-    cards: 100,
+    cards: 30,
     explosions: 2,
     skips: 1,
   },
