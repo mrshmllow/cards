@@ -8,6 +8,7 @@ interface GameState {
     text: string;
   };
   setTooltip: (title: string, text: string) => void;
+  clearTooltip: () => void;
 }
 
 const useStoreBase = create<GameState>((set) => ({
@@ -24,6 +25,16 @@ const useStoreBase = create<GameState>((set) => ({
         };
       })
     ),
+  clearTooltip: () => {
+    set(
+      produce<GameState>((state) => {
+        state.tooltip = {
+          text: "",
+          title: "",
+        };
+      })
+    );
+  },
 }));
 
 const useStore = createSelectorHooks(useStoreBase);

@@ -1,6 +1,6 @@
-import { useThree } from "@react-three/fiber";
-// import useStore from "../state";
-import React from "react";
+import { useFrame, useThree } from "@react-three/fiber";
+import useStore from "../state";
+import React, { useEffect } from "react";
 import { Vector3 } from "three";
 import Deck from "./Deck";
 import Player from "./Player";
@@ -9,6 +9,12 @@ const Game: React.FC<{}> = () => {
   const three = useThree();
   three.camera.position.set(0, 25, 60);
   three.camera.lookAt(new Vector3(0, 0, 0));
+
+  const tooltip = useStore.useTooltip();
+
+  useEffect(() => {
+    console.log(tooltip);
+  }, [tooltip]);
 
   return (
     <>
