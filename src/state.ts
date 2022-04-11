@@ -2,7 +2,6 @@ import create from "zustand";
 import { createSelectorHooks } from "auto-zustand-selectors-hook";
 import produce from "immer";
 import { CardTypes } from "./types/card_types";
-import { reduce } from "lodash";
 
 export interface Card {
   type: CardTypes;

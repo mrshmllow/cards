@@ -1,10 +1,8 @@
-import { useFrame, useThree } from "@react-three/fiber";
-import React, { useEffect, useState } from "react";
+import { useThree } from "@react-three/fiber";
+import React from "react";
 import { Vector3 } from "three";
 import Deck from "./Deck";
 import Player from "./Player";
-import { Card } from "../state";
-import { CardTypes } from "../types/card_types";
 
 const Game: React.FC<{}> = () => {
   const three = useThree();

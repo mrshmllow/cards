@@ -1,5 +1,5 @@
 import { useFrame } from "@react-three/fiber";
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import { BufferGeometry, Material, Mesh, Vector3 } from "three";
 import Animation from "../animation/AnimationComponent";
 import { CardTypes } from "../types/card_types";
