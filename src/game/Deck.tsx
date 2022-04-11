@@ -23,7 +23,7 @@ const Deck: React.FC<{}> = () => {
 
   const onClick = () => {
     pickupCard(turn, {
-      type: CardTypes.explosion,
+      type: CardTypes.skip,
     });
   };
 
