@@ -38,8 +38,8 @@ const Gui: React.FC = () => {
 
   if (tooltip)
     return (
-      <div ref={ref} className="text-white absolute bg-black">
-        <span className="">{tooltip.title}</span>
+      <div ref={ref} className="text-white absolute bg-black p-2 flex flex-col">
+        <span className="text-lg">{tooltip.title}</span>
         <span>{tooltip.text}</span>
       </div>
     );
