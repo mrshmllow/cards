@@ -1,8 +1,10 @@
 import Game from "./game/game";
 import { createRoot } from "react-dom/client";
 import "./style.css";
-import { Canvas } from "@react-three/fiber";
+import { Canvas, useThree } from "@react-three/fiber";
 import { PerspectiveCamera } from "three";
+import useStore from "./state";
+import { useEffect, useRef } from "react";
 
 const World: React.FC = () => {
   return (
@@ -21,4 +23,32 @@ const World: React.FC = () => {
   );
 };
 
-createRoot(document.getElementById("root")!).render(<World />);
+const Gui: React.FC = () => {
+  const tooltip = useStore.useTooltip();
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    document.addEventListener("mousemove", (event) => {
+      if (ref.current) {
+        ref.current.style.top = `${event.y + 10}px`;
+        ref.current.style.left = `${event.x + 10}px`;
+      }
+    });
+  }, []);
+
+  if (tooltip)
+    return (
+      <div ref={ref} className="text-white absolute bg-black">
+        <span className="">{tooltip.title}</span>
+        <span>{tooltip.text}</span>
+      </div>
+    );
+  return <></>;
+};
+
+createRoot(document.getElementById("root")!).render(
+  <>
+    <World />
+    <Gui />
+  </>
+);

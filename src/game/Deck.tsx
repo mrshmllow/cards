@@ -79,8 +79,8 @@ const Deck: React.FC<{}> = () => {
     <mesh
       ref={ref}
       onClick={onClick}
-      onPointerEnter={() => setTooltip("Deck", "Text")}
-      onPointerLeave={() => clearTooltip()}
+      onPointerOver={() => setTooltip("Deck", "Text")}
+      // onPointerLeave={() => clearTooltip()}
     >
       <planeGeometry args={[18 / 2, 25 / 2]} />
 
