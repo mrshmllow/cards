@@ -14,7 +14,6 @@ const Deck: React.FC<{}> = () => {
   const cards = useStore.useDeck().cards;
   const decrementCards = useStore.useDecrementDeck();
   const decrementExplosions = useStore.useDecrementExplosions();
-  const decrementSkip = useStore.useDecrementSkips();
   const players = useStore.usePlayers();
   const turn = useStore.useTurn();
 
