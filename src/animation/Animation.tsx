@@ -1,3 +1,4 @@
+import { useLoader } from "@react-three/fiber";
 import {
   MeshBasicMaterial,
   NearestFilter,
@@ -13,7 +14,7 @@ class Animation {
   private ticks = 0;
 
   private loadedTextures: Texture[] = [];
-  private materials: MeshBasicMaterial[] = [];
+  materials: MeshBasicMaterial[] = [];
 
   /**
    * @param frames number of frames
@@ -31,10 +32,8 @@ class Animation {
 
     this.loop = loop;
 
-    const loader = new TextureLoader();
-
     for (var frame = 0; frame < this.frames; frame++) {
-      this.loadedTextures.push(loader.load(resolve(frame)));
+      this.loadedTextures.push(useLoader(TextureLoader, resolve(frame)));
       this.loadedTextures[frame].magFilter = NearestFilter;
 
       this.materials.push(
@@ -60,6 +59,8 @@ class Animation {
         this.currentFrame += 1;
       }
     }
+
+    return this.currentFrame;
   }
 
   ended() {

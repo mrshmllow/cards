@@ -1,6 +1,5 @@
 import { Mesh, PlaneGeometry } from "three";
-import Animation from "../../animation/Animation";
-import AnimationManager from "../../animation/AnimationManager";
+import Animation from "../../src/animation/Animation";
 import Animatable from "../generics/Animatiable";
 import Clickable from "../generics/Clickable";
 import Hoverable from "../generics/Hoverable";

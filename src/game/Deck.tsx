@@ -1,6 +1,6 @@
-import { useFrame } from "@react-three/fiber";
-import { useRef } from "react";
-import { BufferGeometry, Material, Mesh } from "three";
+import { useLoader } from "@react-three/fiber";
+import { useEffect, useRef, useState } from "react";
+import { NearestFilter, Texture, TextureLoader } from "three";
 import Animation from "../animation/Animation";
 
 const Deck: React.FC<{}> = () => {
@@ -13,24 +13,41 @@ const Deck: React.FC<{}> = () => {
   );
   animation.playing = true;
 
-  useFrame((_, delta) => {
-    animation.animate(delta);
-    (
-      ref.current as unknown as Mesh<BufferGeometry, Material | Material[]>
-    ).material = animation.material();
-  });
+  const textures: Texture[] = [];
+  const materials: JSX.Element[] = [];
+
+  for (let i = 0; i < 19; i++) {
+    const texture = useLoader(TextureLoader, `/assets/card/explosion${i}.png`);
+    texture.magFilter = NearestFilter;
+
+    textures.push(texture);
+
+    materials.push(
+      <meshBasicMaterial args={[{ transparent: true }]} map={texture} key={i} />
+    );
+  }
+
+  let [frame, setFrame] = useState(0);
+
+  useEffect(
+    () =>
+      void setInterval(() => {
+        setFrame((frame) => frame + 1);
+      }, 500),
+    []
+  );
 
   return (
-    <mesh ref={ref}>
-      <planeBufferGeometry args={[18 / 2, 25 / 2]} />
+    <mesh>
+      <planeGeometry args={[18 / 2, 25 / 2]} />
+
+      {/* <meshBasicMaterial args={[{ transparent: true, map: textures[13] }]} /> */}
+      <meshBasicMaterial
+        ref={ref}
+        args={[{ transparent: true }]}
+        map={textures[frame]}
+      />
     </mesh>
-    // <AnimatableMesh
-    //   frames={19}
-    //   currentFrame={0}
-    //   resolve={(frame: number) => `/assets/card/explosion${frame}.png`}
-    //   playing={true}
-    //   loop={true}
-    // />
   );
 };
 

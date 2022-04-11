@@ -1,4 +1,4 @@
-import { Canvas, useThree } from "@react-three/fiber";
+import { useThree } from "@react-three/fiber";
 // import useStore from "../state";
 import React from "react";
 import { Vector3 } from "three";
