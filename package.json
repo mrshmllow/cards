@@ -19,6 +19,7 @@
   },
   "packageManager": "yarn@3.2.0",
   "dependencies": {
+    "@react-spring/three": "^9.4.4",
     "@react-three/fiber": "^8.0.10",
     "auto-zustand-selectors-hook": "^1.0.1",
     "immer": "^9.0.12",
