@@ -45,6 +45,13 @@ const Playlist: React.FC<{
                 current: current + 1,
                 frame: 0,
               };
+            } else {
+              if (loop) {
+                return {
+                  current: 0,
+                  frame: 0,
+                };
+              }
             }
           } else {
             return {
