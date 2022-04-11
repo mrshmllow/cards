@@ -18,3 +18,8 @@ body,
 body {
   background-color: black;
 }
+
+@font-face {
+  font-family: "renogare";
+  src: url("/assets/font/renogare.ttf");
+}
