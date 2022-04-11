@@ -7,7 +7,7 @@ import MultiMesh from "../generics/MultiMesh";
 import { degrees } from "../helpers/math";
 import Client from "../main";
 import { Card } from "./card";
-import cardChances from "./cards/card_chances";
+import cardChances from "../../src/types/card_chances";
 import { CardTypes } from "./cards/card_types";
 import Tooltip from "./hover";
 

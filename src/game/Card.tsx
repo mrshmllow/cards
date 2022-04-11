@@ -2,7 +2,7 @@ import { useFrame } from "@react-three/fiber";
 import { useEffect, useRef } from "react";
 import { BufferGeometry, Material, Mesh, Vector3 } from "three";
 import Playlist from "../animation/Playlist";
-import { CardTypes } from "../types/card_types";
+import { CardTypes } from "../types/cards/card_types";
 
 const Card: React.FC<{ type: CardTypes; moving?: Vector3 }> = ({
   type,
@@ -48,65 +48,33 @@ const Card: React.FC<{ type: CardTypes; moving?: Vector3 }> = ({
             frames: 6,
             resolve: (frame) => `/assets/card/unturn${frame}.png`,
           },
-          {
-            frame: 0,
-            frames: 19,
-            resolve: (frame) => `/assets/card/explosion${frame}.png`,
-          },
+          type === CardTypes.explosion
+            ? {
+                frame: 0,
+                frames: 19,
+                resolve: (frame) => `/assets/card/explosion${frame}.png`,
+              }
+            : type === CardTypes.future
+            ? {
+                frame: 0,
+                frames: 1,
+                resolve: (frame) => `/assets/card/future${frame}.png`,
+              }
+            : type === CardTypes.skip
+            ? {
+                frame: 0,
+                frames: 4,
+                resolve: (frame) => `/assets/card/skip${frame}.png`,
+              }
+            : {
+                frame: 0,
+                frames: 1,
+                resolve: (frame) => `/assets/card/default${frame}.png`,
+              },
         ]}
         loop={false}
         playing={true}
       />
-
-      {/* 
-      {animation === "default" ? (
-        <Animation
-          frames={1}
-          frame={0}
-          resolve={(frame) => `/assets/card/default${frame}.png`}
-          playing={true}
-          loop={false}
-          onEnd={onAnimationEnd}
-        />
-      ) : animation === "unturn" ? (
-        <Animation
-          frames={6}
-          frame={0}
-          resolve={(frame) => `/assets/card/unturn${frame}.png`}
-          playing={true}
-          loop={false}
-          onEnd={onAnimationEnd}
-        />
-      ) : animation === "explosion" ? (
-        <Animation
-          frames={19}
-          frame={0}
-          resolve={(frame) => `/assets/card/explosion${frame}.png`}
-          playing={true}
-          loop={false}
-          onEnd={onAnimationEnd}
-        />
-      ) : animation === "future" ? (
-        <Animation
-          frames={1}
-          frame={0}
-          resolve={(frame) => `/assets/card/future${frame}.png`}
-          playing={true}
-          loop={false}
-          onEnd={onAnimationEnd}
-        />
-      ) : animation === "skip" ? (
-        <Animation
-          frames={4}
-          frame={0}
-          resolve={(frame) => `/assets/card/skip${frame}.png`}
-          playing={true}
-          loop={false}
-          onEnd={onAnimationEnd}
-        />
-      ) : (
-        <></>
-      )} */}
     </mesh>
   );
 };

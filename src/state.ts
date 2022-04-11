@@ -1,14 +1,14 @@
 import create from "zustand";
 import { createSelectorHooks } from "auto-zustand-selectors-hook";
 import produce from "immer";
-import { CardTypes } from "./types/card_types";
+import { CardTypes } from "./types/cards/card_types";
 
-export interface Card {
+export interface ICard {
   type: CardTypes;
 }
 
 export interface Player {
-  cards: Card[];
+  cards: ICard[];
 }
 
 interface GameState {
@@ -20,12 +20,17 @@ interface GameState {
   clearTooltip: () => void;
 
   players: [Player, Player];
-  pickupCard: (player: number, card: Card) => void;
+  pickupCard: (player: number, card: ICard) => void;
   turn: number;
 
   deck: {
     cards: number;
+    explosions: number;
+    skips: number;
   };
+  decrementDeck: () => void;
+  decrementExplosions: () => void;
+  decrementSkips: () => void;
 }
 
 const useStoreBase = create<GameState>((set) => ({
@@ -55,7 +60,6 @@ const useStoreBase = create<GameState>((set) => ({
     },
   ],
   turn: 0,
-
   pickupCard: (player, card) => {
     set(
       produce<GameState>((state) => {
@@ -63,8 +67,32 @@ const useStoreBase = create<GameState>((set) => ({
       })
     );
   },
+
   deck: {
-    cards: 0,
+    cards: 100,
+    explosions: 2,
+    skips: 1,
+  },
+  decrementDeck: () => {
+    set(
+      produce<GameState>((state) => {
+        state.deck.cards -= 1;
+      })
+    );
+  },
+  decrementExplosions: () => {
+    set(
+      produce<GameState>((state) => {
+        state.deck.explosions -= 1;
+      })
+    );
+  },
+  decrementSkips: () => {
+    set(
+      produce<GameState>((state) => {
+        state.deck.skips -= 1;
+      })
+    );
   },
 }));
 
