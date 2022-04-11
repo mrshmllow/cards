@@ -3,11 +3,11 @@ import { NearestFilter, TextureLoader } from "three";
 
 const Animation: React.FC<{
   frames: number;
-  currentFrame: number;
+  frame: number;
   resolve: (frame: number) => string;
   playing: boolean;
   loop: boolean;
-}> = ({ currentFrame, frames, playing, loop, resolve }) => {
+}> = ({ frame: currentFrame, frames, playing, loop, resolve }) => {
   const loader = new TextureLoader();
 
   const textures = useMemo(() => {

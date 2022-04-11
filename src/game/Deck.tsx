@@ -3,11 +3,14 @@ import { BufferGeometry, Material, Mesh } from "three";
 import { degToRad } from "three/src/math/MathUtils";
 import Animation from "../animation/AnimationComponent";
 import useStore from "../state";
+import { CardTypes } from "../types/card_types";
 
 const Deck: React.FC<{}> = () => {
   const ref = useRef();
   const setTooltip = useStore.useSetTooltip();
   const clearTooltip = useStore.useClearTooltip();
+  const pickupCard = useStore.usePickupCard();
+  const turn = useStore.useTurn();
 
   useEffect(() => {
     const reference = ref.current as unknown as Mesh<
@@ -19,7 +22,9 @@ const Deck: React.FC<{}> = () => {
   }, []);
 
   const onClick = () => {
-    console.log("clicked");
+    pickupCard(turn, {
+      type: CardTypes.explosion,
+    });
   };
 
   return (
@@ -32,7 +37,7 @@ const Deck: React.FC<{}> = () => {
       <planeGeometry args={[18 / 2, 25 / 2]} />
 
       <Animation
-        currentFrame={0}
+        frame={0}
         frames={1}
         resolve={(frame) => `/assets/card/default${frame}.png`}
         loop={false}

@@ -120,12 +120,6 @@ export class Card implements SingleMesh, Animatable, Clickable, Hoverable {
 
     if (this.movingTo) {
       this.mesh.position.lerp(this.movingTo, 0.1);
-      // const d = this.mesh.position.x - this.movingTo.x;
-      // if (this.mesh.position.x > this.movingTo.x) {
-      //   this.mesh.position.x -= Math.min(10, d);
-      // } else {
-      //   this.movingTo = undefined;
-      // }
     }
   }
 
