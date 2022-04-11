@@ -7,8 +7,7 @@ const Animation: React.FC<{
   resolve: (frame: number) => string;
   playing: boolean;
   loop: boolean;
-  onEnd?: () => void;
-}> = ({ frame: currentFrame, frames, playing, loop, resolve, onEnd }) => {
+}> = ({ frame: currentFrame, frames, playing, loop, resolve }) => {
   const loader = new TextureLoader();
 
   const textures = useMemo(() => {
