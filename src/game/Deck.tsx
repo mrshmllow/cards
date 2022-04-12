@@ -3,7 +3,7 @@ import { BufferGeometry, Material, Mesh } from "three";
 import { degToRad } from "three/src/math/MathUtils";
 import Animation from "../animation/Animation";
 import useStore from "../state";
-import { getNextCard } from "./helper";
+import { getNextCard } from "../helpers/helper";
 
 const Deck: React.FC<{}> = () => {
   const ref = useRef();
@@ -24,7 +24,7 @@ const Deck: React.FC<{}> = () => {
 
   const onClick = () => {
     if (turn === 0) {
-      const card = getNextCard(next);
+      const card = getNextCard(next, 0);
       pickupCard(turn, card);
       nextTurn();
     }

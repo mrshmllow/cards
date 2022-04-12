@@ -2,10 +2,11 @@ import create from "zustand";
 import { createSelectorHooks } from "auto-zustand-selectors-hook";
 import produce from "immer";
 import { CardTypes } from "./types/cards/card_types";
+import rawNext from "./helpers/rawNext";
 
 export interface ICard {
   type: CardTypes;
-  known?: boolean;
+  knownBy: number[];
 }
 
 export interface Player {
@@ -30,12 +31,12 @@ interface GameState {
     cards: number;
     explosions: number;
     skips: number;
-    next: CardTypes[];
+    next: ICard[];
   };
   decrementDeck: () => void;
   decrementExplosions: () => void;
   decrementSkips: () => void;
-  addNext: (types: CardTypes[]) => void;
+  addNext: (forPlayer: number) => void;
   shiftNext: () => void;
 }
 
@@ -54,7 +55,11 @@ const useStoreBase = create<GameState>((set) => ({
       })
     ),
   clearTooltip: () => {
-    set((state) => (state.tooltip = null));
+    set(
+      produce<GameState>((state) => {
+        state.tooltip = null;
+      })
+    );
   },
 
   players: [
@@ -64,7 +69,8 @@ const useStoreBase = create<GameState>((set) => ({
     {
       cards: [
         {
-          type: CardTypes.future,
+          type: CardTypes.explosion,
+          knownBy: [0],
         },
       ],
     },
@@ -124,14 +130,20 @@ const useStoreBase = create<GameState>((set) => ({
       })
     );
   },
-  addNext: (type) => {
+  addNext: (forPlayer) => {
     set(
       produce<GameState>((state) => {
-        state.deck.next = [...state.deck.next, ...type];
+        for (let i = 0; i < 3; i++) {
+          if (state.deck.next[i]) {
+            !state.deck.next[i].knownBy.includes(1) &&
+              state.deck.next[i].knownBy.push(1);
+          } else {
+            state.deck.next.push(rawNext(forPlayer));
+          }
+        }
       })
     );
   },
-
   shiftNext: () => {
     set(
       produce<GameState>((state) => {

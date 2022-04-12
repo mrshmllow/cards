@@ -4,6 +4,7 @@ import { Group, Vector3 } from "three";
 import Playlist from "../../animation/Playlist";
 import useStore from "../../state";
 import { CardTypes } from "../../types/cards/card_types";
+import { getNextCard } from "../../helpers/helper";
 import CardGui from "./CardGui";
 
 const Card: React.FC<{
@@ -71,14 +72,7 @@ const Card: React.FC<{
                 nextTurn();
               } else if (type === CardTypes.future) {
                 placeOnDeck(0, index);
-                let gen = [];
-
-                for (let i = 0; i < 3; i++) {
-                  // gen.push(getNextCard(next).type);
-                  gen.push(CardTypes.future);
-                }
-
-                addNext(gen);
+                addNext(0);
               }
             }
           }}
