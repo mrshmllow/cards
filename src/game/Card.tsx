@@ -2,6 +2,7 @@ import { useFrame, useThree } from "@react-three/fiber";
 import { useEffect, useRef } from "react";
 import { BufferGeometry, Material, Mesh, Vector3 } from "three";
 import Playlist from "../animation/Playlist";
+import useStore from "../state";
 import { CardTypes } from "../types/cards/card_types";
 
 const Card: React.FC<{
@@ -9,6 +10,7 @@ const Card: React.FC<{
   moving?: Vector3;
 }> = ({ type, moving }) => {
   const three = useThree();
+  const setTooltip = useStore.useSetTooltip();
   const ref = useRef();
   const refrence = ref.current as unknown as Mesh<
     BufferGeometry,
@@ -34,6 +36,8 @@ const Card: React.FC<{
           moving = moving?.add(new Vector3(0, 2, 0));
           refrence.lookAt(three.camera.position);
         }
+
+        setTooltip("A card", "descriptions wip");
       }}
       onPointerLeave={() => {
         if (type !== CardTypes.explosion) {
