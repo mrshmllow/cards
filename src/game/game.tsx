@@ -4,6 +4,7 @@ import { Vector3 } from "three";
 import useStore from "../state";
 import Deck from "./Deck";
 import Player from "./Player";
+import Opponent from "./players/Opponent";
 
 const Game: React.FC<{}> = () => {
   const three = useThree();
@@ -25,6 +26,7 @@ const Game: React.FC<{}> = () => {
       {/* <directionalLight /> */}
       <Deck />
       <Player number={0} />
+      <Opponent number={1} />
     </>
   );
 };

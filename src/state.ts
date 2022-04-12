@@ -58,7 +58,11 @@ const useStoreBase = create<GameState>((set) => ({
       cards: [],
     },
     {
-      cards: [],
+      cards: [
+        {
+          type: CardTypes.future,
+        },
+      ],
     },
   ],
   placeOnDeck: (player, card) => {
