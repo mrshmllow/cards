@@ -1,7 +1,7 @@
 import Game from "./game/game";
 import { createRoot } from "react-dom/client";
 import "./style.css";
-import { Canvas, useThree } from "@react-three/fiber";
+import { Canvas } from "@react-three/fiber";
 import { PerspectiveCamera } from "three";
 import useStore from "./state";
 import { useEffect, useRef } from "react";

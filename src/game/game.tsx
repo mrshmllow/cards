@@ -13,7 +13,7 @@ const Game: React.FC<{}> = () => {
   const clearTooltip = useStore.useClearTooltip();
 
   useEffect(() => {
-    const callback = document.addEventListener("mousemove", (event) => {
+    document.addEventListener("mousemove", () => {
       if (three.raycaster.intersectObjects(three.scene.children).length === 0)
         clearTooltip();
     });

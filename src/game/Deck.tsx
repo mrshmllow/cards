@@ -9,7 +9,6 @@ import { CardTypes } from "../types/cards/card_types";
 const Deck: React.FC<{}> = () => {
   const ref = useRef();
   const setTooltip = useStore.useSetTooltip();
-  const clearTooltip = useStore.useClearTooltip();
   const pickupCard = useStore.usePickupCard();
   const cards = useStore.useDeck().cards;
   const decrementCards = useStore.useDecrementDeck();
