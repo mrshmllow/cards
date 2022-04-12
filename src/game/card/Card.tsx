@@ -62,7 +62,9 @@ const Card: React.FC<{
         <mesh
           onPointerEnter={() => setHovering(true)}
           onPointerLeave={() => setHovering(false)}
-          onClick={() => {
+          onClick={(event) => {
+            event.stopPropagation();
+
             if (turn === 0) {
               if (type === CardTypes.skip) {
                 placeOnDeck(0, index);
