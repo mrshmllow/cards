@@ -1,4 +1,5 @@
-import { Html } from "@react-three/drei";
+import { Html } from "@react-three/drei/web/Html";
+
 import { CardTypes } from "../../types/cards/card_types";
 
 const CardGui: React.FC<{ type: CardTypes }> = ({ type }) => {
