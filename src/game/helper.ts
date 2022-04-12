@@ -1,6 +1,6 @@
-import useStore, { ICard } from "../../state";
-import cardChances from "../../types/cards/card_chances";
-import { CardTypes } from "../../types/cards/card_types";
+import useStore, { ICard } from "../state";
+import cardChances from "../types/cards/card_chances";
+import { CardTypes } from "../types/cards/card_types";
 
 const {
   decrementDeck,
