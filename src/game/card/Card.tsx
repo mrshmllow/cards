@@ -4,14 +4,14 @@ import { Group, Vector3 } from "three";
 import Playlist from "../../animation/Playlist";
 import useStore from "../../state";
 import { CardTypes } from "../../types/cards/card_types";
-import { getNextCard } from "../../helpers/helper";
 import CardGui from "./CardGui";
 
 const Card: React.FC<{
   type: CardTypes;
+  known: boolean;
   moving?: Vector3;
   index: number;
-}> = ({ type, moving, index }) => {
+}> = ({ type, moving, index, known }) => {
   const three = useThree();
   const setTooltip = useStore.useSetTooltip();
   const turn = useStore.useTurn();
@@ -59,7 +59,7 @@ const Card: React.FC<{
   return (
     <>
       <group ref={ref}>
-        {hovering && <CardGui type={type} />}
+        {hovering && <CardGui type={type} known={known} />}
         <mesh
           onPointerEnter={() => setHovering(true)}
           onPointerLeave={() => setHovering(false)}
