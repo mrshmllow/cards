@@ -1,5 +1,5 @@
-import { useFrame, useThree } from "@react-three/fiber";
-import { useEffect, useRef, useState } from "react";
+import { useFrame } from "@react-three/fiber";
+import { useRef } from "react";
 import { BufferGeometry, Material, Mesh, Vector3 } from "three";
 import Playlist from "../../animation/Playlist";
 import useStore from "../../state";
