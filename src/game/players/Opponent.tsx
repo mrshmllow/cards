@@ -4,24 +4,27 @@ import { middleOfArray } from "../../math";
 import useStore from "../../state";
 import { getNextCard } from "../helper";
 import OpponentCard from "../card/OpponentCard";
+import { CardTypes } from "../../types/cards/card_types";
 
 const Opponent: React.FC<{ number: number }> = ({ number }) => {
   const me = useStore.usePlayers()[number];
   const turn = useStore.useTurn();
   const pickupCard = useStore.usePickupCard();
   const nextTurn = useStore.useNextTurn();
+  const placeOnDeck = useStore.usePlaceOnDeck();
 
   useEffect(() => {
     if (turn === number) {
       setTimeout(() => {
         // ai turn
 
-        if (/* Should pickup */ true) {
-          const next = getNextCard();
+        const skip = me.cards.findIndex((card) => card.type === CardTypes.skip);
 
-          pickupCard(turn, next);
+        if (skip !== -1) {
+          placeOnDeck(1, skip);
         } else {
-          // Take cards into account and play a card...
+          const next = getNextCard();
+          pickupCard(turn, next);
         }
 
         nextTurn();
