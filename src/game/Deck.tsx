@@ -70,7 +70,6 @@ const Deck: React.FC<{}> = () => {
 
   const onClick = () => {
     const next = getNextCard(players.length);
-    console.log(next);
     pickupCard(turn, next);
   };
 

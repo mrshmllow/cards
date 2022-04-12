@@ -21,7 +21,9 @@ interface GameState {
 
   players: [Player, Player];
   pickupCard: (player: number, card: ICard) => void;
+  placeOnDeck: (player: number, card: number) => void;
   turn: number;
+  nextTurn: () => void;
 
   deck: {
     cards: number;
@@ -59,7 +61,26 @@ const useStoreBase = create<GameState>((set) => ({
       cards: [],
     },
   ],
+  placeOnDeck: (player, card) => {
+    set(
+      produce<GameState>((state) => {
+        state.players[player].cards.splice(card, 1);
+      })
+    );
+  },
+
   turn: 0,
+  nextTurn: () => {
+    set((state) => {
+      if (state.turn + 1 === state.players.length) {
+        state.turn = 0;
+      } else {
+        state.turn += 1;
+      }
+      return state;
+    });
+  },
+
   pickupCard: (player, card) => {
     set(
       produce<GameState>((state) => {
@@ -70,7 +91,7 @@ const useStoreBase = create<GameState>((set) => ({
 
   deck: {
     cards: 30,
-    explosions: 2,
+    explosions: 1,
     skips: 1,
   },
   decrementDeck: () => {

@@ -4,11 +4,11 @@ const cardChances: {
 }[] = [
   {
     cards: ["future"],
-    chance: 50,
+    chance: 10,
   },
   {
     cards: ["skip"],
-    chance: 50,
+    chance: 90,
   },
 ];
 
