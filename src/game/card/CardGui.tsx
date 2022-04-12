@@ -1,19 +1,18 @@
 import { Html } from "@react-three/drei/web/Html";
+import { Vector3 } from "three";
+import cardLore from "../../types/cards/card_lore";
 
 import { CardTypes } from "../../types/cards/card_types";
 
 const CardGui: React.FC<{ type: CardTypes }> = ({ type }) => {
   return (
     <Html
-      calculatePosition={(_element, _camera, size) => {
-        return [0, size.height / 2 - 250 / 2];
-      }}
-      className={`w-[180px] h-[250px]`}
+      className={`bg-black text-white flex flex-col text-center rounded-lg p-2`}
+      transform
+      position={new Vector3(0, 8, 0)}
     >
-      <img
-        className="rendering-pixelated w-full h-full"
-        src={`/assets/card/${type}0.png`}
-      />
+      <span className="text-6xl">{cardLore[type].title}</span>
+      <span className="text-xl">{cardLore[type].text}</span>
     </Html>
   );
 };
