@@ -1,13 +1,14 @@
-import { useFrame } from "@react-three/fiber";
+import { useFrame, useThree } from "@react-three/fiber";
 import { useEffect, useRef } from "react";
 import { BufferGeometry, Material, Mesh, Vector3 } from "three";
 import Playlist from "../animation/Playlist";
 import { CardTypes } from "../types/cards/card_types";
 
-const Card: React.FC<{ type: CardTypes; moving?: Vector3 }> = ({
-  type,
-  moving,
-}) => {
+const Card: React.FC<{
+  type: CardTypes;
+  moving?: Vector3;
+}> = ({ type, moving }) => {
+  const three = useThree();
   const ref = useRef();
   const refrence = ref.current as unknown as Mesh<
     BufferGeometry,
@@ -31,11 +32,13 @@ const Card: React.FC<{ type: CardTypes; moving?: Vector3 }> = ({
       onPointerEnter={() => {
         if (type !== CardTypes.explosion) {
           moving = moving?.add(new Vector3(0, 2, 0));
+          refrence.lookAt(three.camera.position);
         }
       }}
       onPointerLeave={() => {
         if (type !== CardTypes.explosion) {
           moving = moving?.add(new Vector3(0, -2, 0));
+          refrence.rotation.set(0, 0, 0);
         }
       }}
     >
