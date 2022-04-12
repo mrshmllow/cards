@@ -68,10 +68,10 @@ const useStoreBase = create<GameState>((set) => ({
     },
     {
       cards: [
-        {
-          type: CardTypes.explosion,
-          knownBy: [0],
-        },
+        // {
+        //   type: CardTypes.explosion,
+        //   knownBy: [0],
+        // },
       ],
     },
   ],
