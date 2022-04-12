@@ -4,7 +4,7 @@ import { CardTypes } from "../../types/cards/card_types";
 const CardGui: React.FC<{ type: CardTypes }> = ({ type }) => {
   return (
     <Html
-      calculatePosition={(element, camera, size) => {
+      calculatePosition={(_element, _camera, size) => {
         return [0, size.height / 2 - 250 / 2];
       }}
       className={`w-[180px] h-[250px]`}
