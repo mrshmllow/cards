@@ -5,6 +5,7 @@ import { CardTypes } from "./types/cards/card_types";
 
 export interface ICard {
   type: CardTypes;
+  known?: boolean;
 }
 
 export interface Player {
@@ -29,10 +30,13 @@ interface GameState {
     cards: number;
     explosions: number;
     skips: number;
+    next: CardTypes[];
   };
   decrementDeck: () => void;
   decrementExplosions: () => void;
   decrementSkips: () => void;
+  addNext: (types: CardTypes[]) => void;
+  shiftNext: () => void;
 }
 
 const useStoreBase = create<GameState>((set) => ({
@@ -97,6 +101,7 @@ const useStoreBase = create<GameState>((set) => ({
     cards: 30,
     explosions: 1,
     skips: 1,
+    next: [],
   },
   decrementDeck: () => {
     set(
@@ -116,6 +121,22 @@ const useStoreBase = create<GameState>((set) => ({
     set(
       produce<GameState>((state) => {
         state.deck.skips -= 1;
+      })
+    );
+  },
+  addNext: (type) => {
+    set(
+      produce<GameState>((state) => {
+        state.deck.next = [...state.deck.next, ...type];
+      })
+    );
+  },
+
+  shiftNext: () => {
+    set(
+      produce<GameState>((state) => {
+        console.info("popping!!!");
+        state.deck.next.shift();
       })
     );
   },

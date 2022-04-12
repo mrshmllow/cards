@@ -11,6 +11,7 @@ const Game: React.FC<{}> = () => {
   const three = useThree();
   three.camera.position.set(0, 25, 60);
   three.camera.lookAt(new Vector3(0, 0, 0));
+  const next = useStore.useDeck().next;
 
   const clearTooltip = useStore.useClearTooltip();
 
@@ -20,6 +21,9 @@ const Game: React.FC<{}> = () => {
         clearTooltip();
     });
   }, []);
+  useEffect(() => {
+    console.log("KNOWN NEXT:", next);
+  }, [next]);
 
   return (
     <>

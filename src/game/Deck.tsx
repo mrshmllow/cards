@@ -11,6 +11,7 @@ const Deck: React.FC<{}> = () => {
   const pickupCard = useStore.usePickupCard();
   const turn = useStore.useTurn();
   const nextTurn = useStore.useNextTurn();
+  const next = useStore.useDeck().next;
 
   useEffect(() => {
     const reference = ref.current as unknown as Mesh<
@@ -23,8 +24,8 @@ const Deck: React.FC<{}> = () => {
 
   const onClick = () => {
     if (turn === 0) {
-      const next = getNextCard();
-      pickupCard(turn, next);
+      const card = getNextCard(next);
+      pickupCard(turn, card);
       nextTurn();
     }
   };

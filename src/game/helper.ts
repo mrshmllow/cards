@@ -6,10 +6,19 @@ const {
   decrementDeck,
   decrementExplosions,
   deck: { cards },
+  shiftNext,
   players,
 } = useStore.getState();
 
-export const getNextCard = (): ICard => {
+export const getNextCard = (next: CardTypes[]): ICard => {
+  if (next.length !== 0) {
+    shiftNext();
+    return {
+      type: next[0],
+      known: true,
+    };
+  }
+
   let num = Math.floor(Math.random() * cards + 1);
 
   if (num <= players.length) {
@@ -18,6 +27,7 @@ export const getNextCard = (): ICard => {
 
     return {
       type: CardTypes.explosion,
+      known: true,
     };
   } else {
     const weights: number[] = [];

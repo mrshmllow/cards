@@ -16,6 +16,7 @@ const Card: React.FC<{
   const turn = useStore.useTurn();
   const nextTurn = useStore.useNextTurn();
   const placeOnDeck = useStore.usePlaceOnDeck();
+  const addNext = useStore.useAddNext();
   const cards = useStore.usePlayers()[0].cards;
   const ref = useRef();
   const refrence = ref.current as unknown as Group | undefined;
@@ -66,6 +67,16 @@ const Card: React.FC<{
               if (type === CardTypes.skip) {
                 placeOnDeck(0, index);
                 nextTurn();
+              } else if (type === CardTypes.future) {
+                placeOnDeck(0, index);
+                let gen = [];
+
+                for (let i = 0; i < 3; i++) {
+                  // gen.push(getNextCard(next).type);
+                  gen.push(CardTypes.future);
+                }
+
+                addNext(gen);
               }
             }
           }}

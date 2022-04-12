@@ -12,6 +12,7 @@ const Opponent: React.FC<{ number: number }> = ({ number }) => {
   const pickupCard = useStore.usePickupCard();
   const nextTurn = useStore.useNextTurn();
   const placeOnDeck = useStore.usePlaceOnDeck();
+  const next = useStore.useDeck().next;
 
   useEffect(() => {
     if (turn === number) {
@@ -23,8 +24,8 @@ const Opponent: React.FC<{ number: number }> = ({ number }) => {
         if (skip !== -1) {
           placeOnDeck(1, skip);
         } else {
-          const next = getNextCard();
-          pickupCard(turn, next);
+          const card = getNextCard(next);
+          pickupCard(turn, card);
         }
 
         nextTurn();
@@ -39,6 +40,7 @@ const Opponent: React.FC<{ number: number }> = ({ number }) => {
           type={card.type}
           key={index}
           index={index}
+          known={card.known}
           moving={
             new Vector3(
               me.cards.length % 2 === 0
