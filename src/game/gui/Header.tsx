@@ -1,22 +1,23 @@
-import { useEffect } from "react";
+import { Html } from "@react-three/drei/web/Html";
+import { useRef } from "react";
 import useStore from "../../state";
 
 const Header: React.FC = () => {
   const turn = useStore.useTurn();
-
-  useEffect(() => {
-    console.log(turn, "main");
-  }, [turn]);
+  const ref = useRef();
 
   return (
     <>
-      <div className="absolute top-0 left-1/2 translate-x-1/2 text-white bg-black flex flex-col">
-        {turn === 0 ? (
-          <span>Its your turn</span>
-        ) : (
-          <span>Its player {turn}'s turn</span>
-        )}
-      </div>
+      <group ref={ref}>
+        <Html
+          className="text-white bg-black text-center w-32"
+          calculatePosition={(_el, _camera, size) => {
+            return [size.width / 2 - 32 * 2, 0];
+          }}
+        >
+          <span>{turn === 0 ? "Its your turn" : "Its the enemies turn"}</span>
+        </Html>
+      </group>
     </>
   );
 };
