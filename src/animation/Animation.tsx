@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { NearestFilter, TextureLoader } from "three";
+import { DoubleSide, NearestFilter, TextureLoader } from "three";
 
 const Animation: React.FC<{
   frames: number;
@@ -44,7 +44,10 @@ const Animation: React.FC<{
   }, []);
 
   return (
-    <meshBasicMaterial args={[{ transparent: true }]} map={textures[frame]} />
+    <meshLambertMaterial
+      args={[{ transparent: true, side: DoubleSide }]}
+      map={textures[frame]}
+    />
   );
 };
 

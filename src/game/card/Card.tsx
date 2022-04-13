@@ -77,6 +77,7 @@ const Card: React.FC<{
               }
             }
           }}
+          castShadow={true}
         >
           <planeGeometry args={[18 / 2, 25 / 2]} />
 

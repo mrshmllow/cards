@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { NearestFilter, Texture, TextureLoader } from "three";
+import { DoubleSide, NearestFilter, Texture, TextureLoader } from "three";
 
 const Playlist: React.FC<{
   animations: {
@@ -72,8 +72,8 @@ const Playlist: React.FC<{
   }, [state.current]);
 
   return (
-    <meshBasicMaterial
-      args={[{ transparent: true }]}
+    <meshLambertMaterial
+      args={[{ transparent: true, side: DoubleSide }]}
       map={textures[state.current][state.frame]}
     />
   );

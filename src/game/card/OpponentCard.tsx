@@ -4,7 +4,6 @@ import { BufferGeometry, Material, Mesh, Vector3 } from "three";
 import Playlist from "../../animation/Playlist";
 import cardAnimations from "../../types/cards/card_animations";
 import { CardTypes } from "../../types/cards/card_types";
-import Card from "./Card";
 
 const OpponentCard: React.FC<{
   type: CardTypes;
