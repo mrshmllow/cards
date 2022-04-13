@@ -33,15 +33,18 @@ const Deck: React.FC<{}> = () => {
     <>
       <group ref={ref}>
         <Html
-          className="text-white text-6xl flex flex-col"
+          className="text-white text-7xl flex flex-col"
           transform
-          position={new Vector3(-10, 0, 0)}
+          position={new Vector3(-11, 0, 0)}
         >
           <span>
             {deck.cards} {pluralize("Card", deck.cards)}
           </span>
           <span>
             {deck.explosions} {pluralize("Explosive", deck.explosions)}
+          </span>
+          <span>
+            {((deck.explosions / deck.cards) * 100).toFixed(0)}% chance
           </span>
         </Html>
         <mesh
