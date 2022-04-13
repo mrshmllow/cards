@@ -4,6 +4,7 @@ import { BufferGeometry, Material, Mesh, Vector3 } from "three";
 import Playlist from "../../animation/Playlist";
 import cardAnimations from "../../types/cards/card_animations";
 import { CardTypes } from "../../types/cards/card_types";
+import Card from "./Card";
 
 const OpponentCard: React.FC<{
   type: CardTypes;
@@ -27,7 +28,7 @@ const OpponentCard: React.FC<{
 
         <Playlist
           animations={[
-            known
+            known || type === CardTypes.explosion
               ? type === CardTypes.explosion
                 ? cardAnimations["explosion"]
                 : type === CardTypes.future

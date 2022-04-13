@@ -2,15 +2,14 @@ import useStore, { ICard } from "../state";
 import { CardTypes } from "../types/cards/card_types";
 import rawNext from "./rawNext";
 
-const {
-  decrementDeck,
-  decrementExplosions,
-  deck: { cards },
-  shiftNext,
-  players,
-} = useStore.getState();
+const { decrementDeck, decrementExplosions, shiftNext, players } =
+  useStore.getState();
 
-export const getNextCard = (next: ICard[], forPlayer: number): ICard => {
+export const getNextCard = (
+  next: ICard[],
+  cards: number,
+  forPlayer: number
+): ICard => {
   decrementDeck();
 
   if (next.length !== 0) {

@@ -14,7 +14,7 @@ const Opponent: React.FC<{ number: number }> = ({ number }) => {
   const nextTurn = useStore.useNextTurn();
   const placeOnDeck = useStore.usePlaceOnDeck();
   const addNext = useStore.useAddNext();
-  const next = useStore.useDeck().next;
+  const deck = useStore.useDeck();
 
   useEffect(() => {
     const effect = async () => {
@@ -22,7 +22,7 @@ const Opponent: React.FC<{ number: number }> = ({ number }) => {
         let played: CardTypes[] = [];
 
         const pickup = () => {
-          const card = getNextCard(next, 1);
+          const card = getNextCard(deck.next, deck.cards, 1);
           pickupCard(turn, card);
         };
 
