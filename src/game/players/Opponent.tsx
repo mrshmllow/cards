@@ -27,7 +27,7 @@ const Opponent: React.FC<{ number: number }> = ({ number }) => {
       setTimeout(() => {
         // ai turn
 
-        const knownByMe = next.filter((card) => card.knownBy?.includes(1));
+        // const knownByMe = next.filter((card) => card.knownBy?.includes(1));
 
         const skip = me.cards.findIndex((card) => card.type === CardTypes.skip);
         const future = me.cards.findIndex(

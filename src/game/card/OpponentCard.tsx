@@ -50,8 +50,9 @@ const OpponentCard: React.FC<{
                 : type === CardTypes.future
                 ? {
                     frame: 0,
-                    frames: 1,
+                    frames: 10,
                     resolve: (frame) => `/assets/card/future${frame}.png`,
+                    speed: 50,
                   }
                 : type === CardTypes.skip
                 ? {
