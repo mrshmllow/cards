@@ -147,7 +147,6 @@ const useStoreBase = create<GameState>((set) => ({
   shiftNext: () => {
     set(
       produce<GameState>((state) => {
-        console.info("popping!!!");
         state.deck.next.shift();
       })
     );
