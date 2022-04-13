@@ -38,6 +38,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@react-three/fiber", "virtual:a4433e3ba641c12161d7bd6d0e50f29bc8c5f3e55647a50e657f9b2604e8a3923e257764306b24858a9ba1fc0843fa722531bb48bd20a5b40efab512ba244eb8#npm:8.0.10"],\
             ["@rollup/plugin-alias", "virtual:a4433e3ba641c12161d7bd6d0e50f29bc8c5f3e55647a50e657f9b2604e8a3923e257764306b24858a9ba1fc0843fa722531bb48bd20a5b40efab512ba244eb8#npm:3.1.9"],\
             ["@types/lodash", "npm:4.14.181"],\
+            ["@types/pluralize", "npm:0.0.29"],\
             ["@types/react", "npm:18.0.1"],\
             ["@types/react-dom", "npm:18.0.0"],\
             ["@types/three", "npm:0.139.0"],\
@@ -46,6 +47,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["autoprefixer", "virtual:a4433e3ba641c12161d7bd6d0e50f29bc8c5f3e55647a50e657f9b2604e8a3923e257764306b24858a9ba1fc0843fa722531bb48bd20a5b40efab512ba244eb8#npm:10.4.4"],\
             ["immer", "npm:9.0.12"],\
             ["lodash", "npm:4.17.21"],\
+            ["pluralize", "npm:8.0.0"],\
             ["postcss", "npm:8.4.12"],\
             ["react", "npm:18.0.0"],\
             ["react-dom", "virtual:a4433e3ba641c12161d7bd6d0e50f29bc8c5f3e55647a50e657f9b2604e8a3923e257764306b24858a9ba1fc0843fa722531bb48bd20a5b40efab512ba244eb8#npm:18.0.0"],\
@@ -894,6 +896,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["@types/pluralize", [\
+        ["npm:0.0.29", {\
+          "packageLocation": "./.yarn/cache/@types-pluralize-npm-0.0.29-a6b8916fba-db7732b733.zip/node_modules/@types/pluralize/",\
+          "packageDependencies": [\
+            ["@types/pluralize", "npm:0.0.29"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["@types/prop-types", [\
         ["npm:15.7.5", {\
           "packageLocation": "./.yarn/cache/@types-prop-types-npm-15.7.5-2aa48aa177-5b43b8b154.zip/node_modules/@types/prop-types/",\
@@ -1327,6 +1338,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@react-three/fiber", "virtual:a4433e3ba641c12161d7bd6d0e50f29bc8c5f3e55647a50e657f9b2604e8a3923e257764306b24858a9ba1fc0843fa722531bb48bd20a5b40efab512ba244eb8#npm:8.0.10"],\
             ["@rollup/plugin-alias", "virtual:a4433e3ba641c12161d7bd6d0e50f29bc8c5f3e55647a50e657f9b2604e8a3923e257764306b24858a9ba1fc0843fa722531bb48bd20a5b40efab512ba244eb8#npm:3.1.9"],\
             ["@types/lodash", "npm:4.14.181"],\
+            ["@types/pluralize", "npm:0.0.29"],\
             ["@types/react", "npm:18.0.1"],\
             ["@types/react-dom", "npm:18.0.0"],\
             ["@types/three", "npm:0.139.0"],\
@@ -1335,6 +1347,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["autoprefixer", "virtual:a4433e3ba641c12161d7bd6d0e50f29bc8c5f3e55647a50e657f9b2604e8a3923e257764306b24858a9ba1fc0843fa722531bb48bd20a5b40efab512ba244eb8#npm:10.4.4"],\
             ["immer", "npm:9.0.12"],\
             ["lodash", "npm:4.17.21"],\
+            ["pluralize", "npm:8.0.0"],\
             ["postcss", "npm:8.4.12"],\
             ["react", "npm:18.0.0"],\
             ["react-dom", "virtual:a4433e3ba641c12161d7bd6d0e50f29bc8c5f3e55647a50e657f9b2604e8a3923e257764306b24858a9ba1fc0843fa722531bb48bd20a5b40efab512ba244eb8#npm:18.0.0"],\
@@ -2867,6 +2880,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/picomatch-npm-2.3.1-c782cfd986-050c865ce8.zip/node_modules/picomatch/",\
           "packageDependencies": [\
             ["picomatch", "npm:2.3.1"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["pluralize", [\
+        ["npm:8.0.0", {\
+          "packageLocation": "./.yarn/cache/pluralize-npm-8.0.0-f5f044ed52-08931d4a6a.zip/node_modules/pluralize/",\
+          "packageDependencies": [\
+            ["pluralize", "npm:8.0.0"]\
           ],\
           "linkType": "HARD"\
         }]\
