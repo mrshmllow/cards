@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { Group, Vector3 } from "three";
 import Playlist from "../../animation/Playlist";
 import useStore from "../../state";
+import cardAnimations from "../../types/cards/card_animations";
 import { CardTypes } from "../../types/cards/card_types";
 import CardGui from "./CardGui";
 
@@ -87,29 +88,12 @@ const Card: React.FC<{
                 resolve: (frame) => `/assets/card/unturn${frame}.png`,
               },
               type === CardTypes.explosion
-                ? {
-                    frame: 0,
-                    frames: 19,
-                    resolve: (frame) => `/assets/card/explosion${frame}.png`,
-                  }
+                ? cardAnimations["explosion"]
                 : type === CardTypes.future
-                ? {
-                    frame: 0,
-                    frames: 10,
-                    resolve: (frame) => `/assets/card/future${frame}.png`,
-                    speed: 50,
-                  }
+                ? cardAnimations["future"]
                 : type === CardTypes.skip
-                ? {
-                    frame: 0,
-                    frames: 4,
-                    resolve: (frame) => `/assets/card/skip${frame}.png`,
-                  }
-                : {
-                    frame: 0,
-                    frames: 1,
-                    resolve: (frame) => `/assets/card/default${frame}.png`,
-                  },
+                ? cardAnimations["skip"]
+                : cardAnimations["default"],
             ]}
             loop={false}
             playing={true}

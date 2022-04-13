@@ -2,6 +2,7 @@ import { useFrame } from "@react-three/fiber";
 import { useRef } from "react";
 import { BufferGeometry, Material, Mesh, Vector3 } from "three";
 import Playlist from "../../animation/Playlist";
+import cardAnimations from "../../types/cards/card_animations";
 import { CardTypes } from "../../types/cards/card_types";
 
 const OpponentCard: React.FC<{
@@ -28,34 +29,13 @@ const OpponentCard: React.FC<{
           animations={[
             known
               ? type === CardTypes.explosion
-                ? {
-                    frame: 0,
-                    frames: 19,
-                    resolve: (frame) => `/assets/card/explosion${frame}.png`,
-                  }
+                ? cardAnimations["explosion"]
                 : type === CardTypes.future
-                ? {
-                    frame: 0,
-                    frames: 10,
-                    resolve: (frame) => `/assets/card/future${frame}.png`,
-                    speed: 50,
-                  }
+                ? cardAnimations["future"]
                 : type === CardTypes.skip
-                ? {
-                    frame: 0,
-                    frames: 4,
-                    resolve: (frame) => `/assets/card/skip${frame}.png`,
-                  }
-                : {
-                    frame: 0,
-                    frames: 1,
-                    resolve: (frame) => `/assets/card/default${frame}.png`,
-                  }
-              : {
-                  frame: 0,
-                  frames: 1,
-                  resolve: (frame) => `/assets/card/default${frame}.png`,
-                },
+                ? cardAnimations["skip"]
+                : cardAnimations["default"]
+              : cardAnimations["default"],
           ]}
           loop={false}
           playing={true}
