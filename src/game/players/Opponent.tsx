@@ -46,7 +46,7 @@ const Opponent: React.FC<{ number: number }> = ({ number }) => {
           } else if (future !== -1 && !played.includes(CardTypes.future)) {
             place(future);
             addNext(1);
-            choice();
+            await choice();
           } else {
             // Last resort
             pickup();
