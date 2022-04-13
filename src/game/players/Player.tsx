@@ -1,8 +1,8 @@
 import React from "react";
 import { Vector3 } from "three";
-import { middleOfArray } from "../math";
-import useStore from "../state";
-import Card from "./card/Card";
+import { middleOfArray } from "../../math";
+import useStore from "../../state";
+import Card from "../card/Card";
 
 const Player: React.FC<{ number: number }> = ({ number }) => {
   const me = useStore.usePlayers()[number];

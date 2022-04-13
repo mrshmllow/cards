@@ -5,7 +5,7 @@ import useStore from "../state";
 import Plane from "./card/Plane";
 import Deck from "./Deck";
 import Header from "./gui/Header";
-import Player from "./Player";
+import Player from "./players/Player";
 import Opponent from "./players/Opponent";
 
 const Game: React.FC<{}> = () => {
