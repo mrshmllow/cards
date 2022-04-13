@@ -10,12 +10,16 @@ const Header: React.FC = () => {
     <>
       <group ref={ref}>
         <Html
-          className="text-white bg-black text-center w-32"
+          className="text-white bg-black text-center w-64"
           calculatePosition={(_el, _camera, size) => {
-            return [size.width / 2 - 32 * 2, 0];
+            return [size.width / 2 - 64 * 2, 0];
           }}
         >
-          <span>{turn === 0 ? "Its your turn" : "Its the enemies turn"}</span>
+          <span>
+            {turn === 0
+              ? "Its your turn. You have to pickup to end your turn."
+              : "Its the enemies turn"}
+          </span>
         </Html>
       </group>
     </>
