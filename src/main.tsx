@@ -2,7 +2,7 @@ import Game from "./game/game";
 import { createRoot } from "react-dom/client";
 import "./style.css";
 import { Canvas } from "@react-three/fiber";
-import { PerspectiveCamera } from "three";
+import { PerspectiveCamera, WebGLRenderer } from "three";
 
 const World: React.FC = () => {
   return (
@@ -14,6 +14,12 @@ const World: React.FC = () => {
           0.1,
           1000
         )
+      }
+      gl={(canvas) =>
+        new WebGLRenderer({
+          canvas,
+          antialias: true,
+        })
       }
     >
       <Game />
