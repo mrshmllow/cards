@@ -6,6 +6,7 @@ const Playlist: React.FC<{
     frames: number;
     frame: number;
     resolve: (frame: number) => string;
+    speed?: number;
   }[];
   loop: boolean;
   playing: boolean;
@@ -36,36 +37,39 @@ const Playlist: React.FC<{
   }, []);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      if (playing) {
-        setState(({ current, frame }) => {
-          if (frame + 1 === animations[current].frames) {
-            if (!(current + 1 === animations.length)) {
-              return {
-                current: current + 1,
-                frame: 0,
-              };
-            } else {
-              if (loop) {
+    const interval = setInterval(
+      () => {
+        if (playing) {
+          setState(({ current, frame }) => {
+            if (frame + 1 === animations[current].frames) {
+              if (!(current + 1 === animations.length)) {
                 return {
-                  current: 0,
+                  current: current + 1,
                   frame: 0,
                 };
+              } else {
+                if (loop) {
+                  return {
+                    current: 0,
+                    frame: 0,
+                  };
+                }
               }
+            } else {
+              return {
+                current,
+                frame: frame + 1,
+              };
             }
-          } else {
-            return {
-              current,
-              frame: frame + 1,
-            };
-          }
-          return { current, frame };
-        });
-      }
-    }, 100);
+            return { current, frame };
+          });
+        }
+      },
+      animations[state.current].speed ? animations[state.current].speed : 100
+    );
 
     return () => clearInterval(interval);
-  }, []);
+  }, [state.current]);
 
   return (
     <meshBasicMaterial
