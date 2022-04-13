@@ -2,7 +2,6 @@ import { useFrame } from "@react-three/fiber";
 import { useRef } from "react";
 import { BufferGeometry, Material, Mesh, Vector3 } from "three";
 import Playlist from "../../animation/Playlist";
-import useStore from "../../state";
 import { CardTypes } from "../../types/cards/card_types";
 
 const OpponentCard: React.FC<{
@@ -10,10 +9,7 @@ const OpponentCard: React.FC<{
   known?: boolean;
   moving?: Vector3;
   index: number;
-}> = ({ type, moving, index, known }) => {
-  const turn = useStore.useTurn();
-  const nextTurn = useStore.useNextTurn();
-  const placeOnDeck = useStore.usePlaceOnDeck();
+}> = ({ type, moving, known }) => {
   const ref = useRef();
   const refrence = ref.current as unknown as
     | Mesh<BufferGeometry, Material | Material[]>
@@ -25,17 +21,7 @@ const OpponentCard: React.FC<{
 
   return (
     <>
-      <mesh
-        ref={ref}
-        onClick={() => {
-          if (turn === 0) {
-            if (type === CardTypes.skip) {
-              placeOnDeck(0, index);
-              nextTurn();
-            }
-          }
-        }}
-      >
+      <mesh ref={ref}>
         <planeGeometry args={[18 / 2, 25 / 2]} />
 
         <Playlist
