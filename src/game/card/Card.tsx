@@ -83,11 +83,7 @@ const Card: React.FC<{
 
           <Playlist
             animations={[
-              {
-                frame: 0,
-                frames: 6,
-                resolve: (frame) => `/assets/card/unturn${frame}.png`,
-              },
+              cardAnimations["unturn"],
               type === CardTypes.explosion
                 ? cardAnimations["explosion"]
                 : type === CardTypes.future
@@ -98,6 +94,7 @@ const Card: React.FC<{
             ]}
             loop={false}
             playing={true}
+            depthResolve={() => `/assets/card/depth/default0.png`}
           />
         </mesh>
       </group>

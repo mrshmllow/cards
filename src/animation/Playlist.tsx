@@ -6,11 +6,13 @@ const Playlist: React.FC<{
     frames: number;
     frame: number;
     resolve: (frame: number) => string;
+    depthResolve?: (frame: number) => string;
     speed?: number;
   }[];
+  depthResolve?: () => string;
   loop: boolean;
   playing: boolean;
-}> = ({ animations, loop, playing }) => {
+}> = ({ animations, loop, playing, depthResolve }) => {
   const loader = new TextureLoader();
   const [state, setState] = useState<{ current: number; frame: number }>({
     current: 0,
@@ -34,6 +36,37 @@ const Playlist: React.FC<{
     }
 
     return animationTextures;
+  }, []);
+
+  const defaultDepth = useMemo(() => {
+    if (depthResolve) {
+      const depth = loader.load(depthResolve());
+      depth.magFilter = NearestFilter;
+      return depth;
+    }
+    return undefined;
+  }, []);
+
+  const depthTextures = useMemo(() => {
+    const depthMaps: {
+      [key: number]: Texture[];
+    } = [];
+    for (let j = 0; j < animations.length; j++) {
+      const depthTextures = [];
+
+      for (let i = 0; i < animations[j].frames; i++) {
+        if (animations[j].depthResolve !== undefined) {
+          console.log(animations[j].depthResolve!(i));
+          const texture = loader.load(animations[j].depthResolve!(i));
+          texture.magFilter = NearestFilter;
+
+          depthTextures.push(texture);
+        }
+      }
+
+      depthMaps[j] = depthTextures;
+    }
+    return depthMaps;
   }, []);
 
   useEffect(() => {
@@ -72,10 +105,17 @@ const Playlist: React.FC<{
   }, [state.current]);
 
   return (
-    <meshLambertMaterial
-      args={[{ transparent: true, side: DoubleSide }]}
-      map={textures[state.current][state.frame]}
-    />
+    <>
+      <meshLambertMaterial
+        args={[{ transparent: true, side: DoubleSide, alphaTest: 0.1 }]}
+        map={textures[state.current][state.frame]}
+        alphaMap={
+          animations[state.current].depthResolve !== undefined
+            ? depthTextures[state.current][state.frame]
+            : defaultDepth
+        }
+      />
+    </>
   );
 };
 

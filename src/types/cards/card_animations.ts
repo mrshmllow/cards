@@ -3,6 +3,7 @@ const cardAnimations: {
     frames: number;
     frame: number;
     resolve: (frame: number) => string;
+    depthResolve?: (frame: number) => string;
     speed?: number;
   };
 } = {
@@ -15,11 +16,13 @@ const cardAnimations: {
     frame: 0,
     frames: 6,
     resolve: (frame) => `/assets/card/unturn${frame}.png`,
+    depthResolve: (frame) => `/assets/card/depth/unturn${frame}.png`,
   },
   explosion: {
     frame: 0,
     frames: 19,
     resolve: (frame) => `/assets/card/explosion${frame}.png`,
+    depthResolve: (frame) => `/assets/card/depth/explosion${frame}.png`,
   },
   future: {
     frame: 0,
