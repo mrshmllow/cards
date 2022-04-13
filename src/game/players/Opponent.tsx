@@ -5,6 +5,7 @@ import useStore from "../../state";
 import { getNextCard } from "../../helpers/helper";
 import OpponentCard from "../card/OpponentCard";
 import { CardTypes } from "../../types/cards/card_types";
+import { sleep } from "../../helpers/time";
 
 const Opponent: React.FC<{ number: number }> = ({ number }) => {
   const me = useStore.usePlayers()[number];
@@ -16,21 +17,23 @@ const Opponent: React.FC<{ number: number }> = ({ number }) => {
   const next = useStore.useDeck().next;
 
   useEffect(() => {
-    if (turn === number) {
-      let played: CardTypes[] = [];
+    const effect = async () => {
+      if (turn === number) {
+        let played: CardTypes[] = [];
 
-      const pickup = () => {
-        const card = getNextCard(next, 1);
-        pickupCard(turn, card);
-      };
+        const pickup = () => {
+          const card = getNextCard(next, 1);
+          pickupCard(turn, card);
+        };
 
-      const place = (card: number) => {
-        placeOnDeck(1, card);
-        played.push(me.cards[card].type);
-      };
+        const place = (card: number) => {
+          placeOnDeck(1, card);
+          played.push(me.cards[card].type);
+        };
 
-      const choice = () => {
-        setTimeout(() => {
+        const choice = async () => {
+          await sleep(1000);
+
           const skip = me.cards.findIndex(
             (card) => card.type === CardTypes.skip
           );
@@ -48,12 +51,13 @@ const Opponent: React.FC<{ number: number }> = ({ number }) => {
             // Last resort
             pickup();
           }
-        }, 1000);
-      };
+        };
 
-      choice();
-      nextTurn();
-    }
+        await choice();
+        nextTurn();
+      }
+    };
+    effect();
   }, [turn]);
 
   return (
