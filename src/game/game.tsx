@@ -15,7 +15,6 @@ import Opponent from "./players/Opponent";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 // import CardWorld from "./Cards_world";
 import Discard from "./Discard";
-import { AsciiEffect } from "three/examples/jsm/effects/AsciiEffect";
 
 const Game: React.FC<{}> = () => {
   const three = useThree();
@@ -26,7 +25,7 @@ const Game: React.FC<{}> = () => {
   const d = 10;
 
   useEffect(() => {
-    three.camera.position.set(0, 25, 60);
+    three.camera.position.set(0, 25, 65);
     // three.camera.position.set(15, 25, 60);
     three.camera.lookAt(new Vector3(0, 0, 0));
     three.gl.shadowMap.enabled = true;

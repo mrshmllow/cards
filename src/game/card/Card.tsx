@@ -79,6 +79,7 @@ const Card: React.FC<{
             }
           }}
           castShadow={true}
+          renderOrder={10}
         >
           <planeGeometry args={[18 / 2, 25 / 2]} />
 
@@ -97,6 +98,7 @@ const Card: React.FC<{
             playing={true}
             depthResolve={() => `/assets/card/depth/default0.png`}
             color={disabled ? "grey" : undefined}
+            depthTest={false}
           />
         </mesh>
       </group>

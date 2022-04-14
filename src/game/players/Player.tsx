@@ -21,8 +21,8 @@ const Player: React.FC<{ number: number }> = ({ number }) => {
               me.cards.length % 2 === 0
                 ? (index - middleOfArray(me.cards)) * 9.5 + 9.5 / 2
                 : (index - middleOfArray(me.cards)) * 9.5,
-              8.3,
-              23
+              0,
+              29
             )
           }
         />
