@@ -1,3 +1,4 @@
+import { useLoader } from "@react-three/fiber";
 import { useEffect, useMemo, useState } from "react";
 import { DoubleSide, NearestFilter, Texture, TextureLoader } from "three";
 import { IAnimation } from "../types/cards/card_animations";
@@ -8,7 +9,6 @@ const Playlist: React.FC<{
   loop: boolean;
   playing: boolean;
 }> = ({ animations, loop, playing, depthResolve }) => {
-  const loader = new TextureLoader();
   const [state, setState] = useState<{ current: number; frame: number }>({
     current: 0,
     frame: 0,
@@ -21,7 +21,7 @@ const Playlist: React.FC<{
     for (let j = 0; j < animations.length; j++) {
       const textures = [];
       for (let i = 0; i < animations[j].frames; i++) {
-        const texture = loader.load(animations[j].resolve(i));
+        const texture = useLoader(TextureLoader, animations[j].resolve(i));
         texture.magFilter = NearestFilter;
 
         textures.push(texture);
@@ -35,7 +35,7 @@ const Playlist: React.FC<{
 
   const defaultDepth = useMemo(() => {
     if (depthResolve) {
-      const depth = loader.load(depthResolve());
+      const depth = useLoader(TextureLoader, depthResolve());
       depth.magFilter = NearestFilter;
       return depth;
     }
@@ -51,7 +51,10 @@ const Playlist: React.FC<{
 
       for (let i = 0; i < animations[j].frames; i++) {
         if (animations[j].depthResolve !== undefined) {
-          const texture = loader.load(animations[j].depthResolve!(i));
+          const texture = useLoader(
+            TextureLoader,
+            animations[j].depthResolve!(i)
+          );
           texture.magFilter = NearestFilter;
 
           depthTextures.push(texture);

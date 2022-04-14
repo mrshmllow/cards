@@ -1,3 +1,4 @@
+import { useLoader } from "@react-three/fiber";
 import { useEffect, useMemo, useState } from "react";
 import { DoubleSide, NearestFilter, TextureLoader } from "three";
 import { IAnimation } from "../types/cards/card_animations";
@@ -7,12 +8,10 @@ const Animation: React.FC<{
   playing: boolean;
   loop: boolean;
 }> = ({ playing, loop, animation }) => {
-  const loader = new TextureLoader();
-
   const textures = useMemo(() => {
     const textures = [];
     for (let i = 0; i < animation.frames; i++) {
-      const texture = loader.load(animation.resolve(i));
+      const texture = useLoader(TextureLoader, animation.resolve(i));
       texture.magFilter = NearestFilter;
 
       textures.push(texture);
