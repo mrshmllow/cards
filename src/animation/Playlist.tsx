@@ -1,14 +1,33 @@
-import { useLoader } from "@react-three/fiber";
+import {
+  ExtendedColors,
+  NodeProps,
+  Overwrite,
+  useLoader,
+} from "@react-three/fiber";
 import { useEffect, useMemo, useState } from "react";
-import { DoubleSide, NearestFilter, Texture, TextureLoader } from "three";
+import {
+  DoubleSide,
+  MeshLambertMaterial,
+  MeshLambertMaterialParameters,
+  NearestFilter,
+  Texture,
+  TextureLoader,
+} from "three";
 import { IAnimation } from "../types/cards/card_animations";
 
-const Playlist: React.FC<{
-  animations: IAnimation[];
-  depthResolve?: () => string;
-  loop: boolean;
-  playing: boolean;
-}> = ({ animations, loop, playing, depthResolve }) => {
+const Playlist: React.FC<
+  {
+    animations: IAnimation[];
+    depthResolve?: () => string;
+    loop: boolean;
+    playing: boolean;
+  } & ExtendedColors<
+    Overwrite<
+      Partial<MeshLambertMaterial>,
+      NodeProps<MeshLambertMaterial, [MeshLambertMaterialParameters]>
+    >
+  >
+> = ({ animations, loop, playing, depthResolve, ...props }) => {
   const [state, setState] = useState<{ current: number; frame: number }>({
     current: 0,
     frame: 0,
@@ -111,6 +130,7 @@ const Playlist: React.FC<{
             ? depthTextures[state.current][state.frame]
             : defaultDepth
         }
+        {...props}
       />
     </>
   );

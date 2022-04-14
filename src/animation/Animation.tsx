@@ -1,13 +1,31 @@
-import { useLoader } from "@react-three/fiber";
+import {
+  ExtendedColors,
+  NodeProps,
+  Overwrite,
+  useLoader,
+} from "@react-three/fiber";
 import { useEffect, useMemo, useState } from "react";
-import { DoubleSide, NearestFilter, TextureLoader } from "three";
+import {
+  DoubleSide,
+  MeshLambertMaterial,
+  MeshLambertMaterialParameters,
+  NearestFilter,
+  TextureLoader,
+} from "three";
 import { IAnimation } from "../types/cards/card_animations";
 
-const Animation: React.FC<{
-  animation: IAnimation;
-  playing: boolean;
-  loop: boolean;
-}> = ({ playing, loop, animation }) => {
+const Animation: React.FC<
+  {
+    animation: IAnimation;
+    playing: boolean;
+    loop: boolean;
+  } & ExtendedColors<
+    Overwrite<
+      Partial<MeshLambertMaterial>,
+      NodeProps<MeshLambertMaterial, [MeshLambertMaterialParameters]>
+    >
+  >
+> = ({ playing, loop, animation, ...props }) => {
   const textures = useMemo(() => {
     const textures = [];
     for (let i = 0; i < animation.frames; i++) {
@@ -45,6 +63,7 @@ const Animation: React.FC<{
     <meshLambertMaterial
       args={[{ transparent: true, side: DoubleSide }]}
       map={textures[frame]}
+      {...props}
     />
   );
 };
