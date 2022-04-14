@@ -4,7 +4,7 @@ import { middleOfArray } from "../../math";
 import useStore from "../../state";
 import { getNextCard } from "../../helpers/helper";
 import OpponentCard from "../card/OpponentCard";
-import { CardTypes } from "../../types/cards/card_types";
+import { CardType } from "../../types/cards/card_type";
 import { sleep } from "../../helpers/time";
 
 const Opponent: React.FC<{ number: number }> = ({ number }) => {
@@ -19,7 +19,7 @@ const Opponent: React.FC<{ number: number }> = ({ number }) => {
   useEffect(() => {
     const effect = async () => {
       if (turn === number) {
-        let played: CardTypes[] = [];
+        let played: CardType[] = [];
 
         const pickup = () => {
           const card = getNextCard(deck.next, deck.cards, 1);
@@ -35,15 +35,15 @@ const Opponent: React.FC<{ number: number }> = ({ number }) => {
           await sleep(1000);
 
           const skip = me.cards.findIndex(
-            (card) => card.type === CardTypes.skip
+            (card) => card.type === CardType.skip
           );
           const future = me.cards.findIndex(
-            (card) => card.type === CardTypes.future
+            (card) => card.type === CardType.future
           );
 
           if (skip !== -1) {
             place(skip);
-          } else if (future !== -1 && !played.includes(CardTypes.future)) {
+          } else if (future !== -1 && !played.includes(CardType.future)) {
             place(future);
             addNext(1);
             await choice();

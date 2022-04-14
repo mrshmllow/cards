@@ -1,11 +1,11 @@
 import create from "zustand";
 import { createSelectorHooks } from "auto-zustand-selectors-hook";
 import produce from "immer";
-import { CardTypes } from "./types/cards/card_types";
+import { CardType } from "./types/cards/card_type";
 import rawNext from "./helpers/rawNext";
 
 export interface ICard {
-  type: CardTypes;
+  type: CardType;
   knownBy: number[];
 }
 
@@ -39,7 +39,7 @@ interface GameState {
   addNext: (forPlayer: number) => void;
   shiftNext: () => void;
 
-  discard: CardTypes | null;
+  discard: CardType | null;
 }
 
 const useStoreBase = create<GameState>((set) => ({

@@ -2,9 +2,9 @@ import { Html } from "@react-three/drei/web/Html";
 import { Vector3 } from "three";
 import cardLore from "../../types/cards/card_lore";
 
-import { CardTypes } from "../../types/cards/card_types";
+import { CardType } from "../../types/cards/card_type";
 
-const CardGui: React.FC<{ type: CardTypes; known: boolean }> = ({
+const CardGui: React.FC<{ type: CardType; known: boolean }> = ({
   type,
   known,
 }) => {

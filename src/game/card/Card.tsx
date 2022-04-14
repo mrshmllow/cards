@@ -4,11 +4,11 @@ import { Group, Vector3 } from "three";
 import Playlist from "../../animation/Playlist";
 import useStore from "../../state";
 import cardAnimations from "../../types/cards/card_animations";
-import { CardTypes } from "../../types/cards/card_types";
+import { CardType } from "../../types/cards/card_type";
 import CardGui from "./CardGui";
 
 const Card: React.FC<{
-  type: CardTypes;
+  type: CardType;
   known: boolean;
   moving?: Vector3;
   index: number;
@@ -42,7 +42,7 @@ const Card: React.FC<{
 
   useEffect(() => {
     if (refrence) {
-      if (type !== CardTypes.explosion) {
+      if (type !== CardType.explosion) {
         if (hovering) {
           refrence.lookAt(three.camera.position);
         } else {
@@ -68,10 +68,10 @@ const Card: React.FC<{
             event.stopPropagation();
 
             if (turn === 0) {
-              if (type === CardTypes.skip) {
+              if (type === CardType.skip) {
                 placeOnDeck(0, index);
                 nextTurn();
-              } else if (type === CardTypes.future) {
+              } else if (type === CardType.future) {
                 placeOnDeck(0, index);
                 addNext(0);
               }
@@ -84,11 +84,11 @@ const Card: React.FC<{
           <Playlist
             animations={[
               cardAnimations["unturn"],
-              type === CardTypes.explosion
+              type === CardType.explosion
                 ? cardAnimations["explosion"]
-                : type === CardTypes.future
+                : type === CardType.future
                 ? cardAnimations["future"]
-                : type === CardTypes.skip
+                : type === CardType.skip
                 ? cardAnimations["skip"]
                 : cardAnimations["default"],
             ]}

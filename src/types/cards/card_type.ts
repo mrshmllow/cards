@@ -1,4 +1,4 @@
-export enum CardTypes {
+export enum CardType {
   default = "default",
   explosion = "explosion",
   future = "future",

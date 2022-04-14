@@ -1,5 +1,5 @@
 import useStore, { ICard } from "../state";
-import { CardTypes } from "../types/cards/card_types";
+import { CardType } from "../types/cards/card_type";
 import rawNext from "./rawNext";
 
 const { decrementDeck, decrementExplosions, shiftNext, players } =
@@ -31,7 +31,7 @@ export const getNextCard = (
     decrementExplosions();
 
     return {
-      type: CardTypes.explosion,
+      type: CardType.explosion,
       knownBy: [forPlayer],
     };
   } else {

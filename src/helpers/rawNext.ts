@@ -1,5 +1,5 @@
 import cardChances from "../types/cards/card_chances";
-import { CardTypes } from "../types/cards/card_types";
+import { CardType } from "../types/cards/card_type";
 
 const rawNext = (forPlayer: number) => {
   const weights: number[] = [];
@@ -19,7 +19,7 @@ const rawNext = (forPlayer: number) => {
       return {
         type: value.cards[
           Math.floor(Math.random() * value.cards.length)
-        ] as CardTypes,
+        ] as CardType,
         knownBy: [forPlayer],
       };
     }
@@ -28,7 +28,7 @@ const rawNext = (forPlayer: number) => {
     "There is something wrong with time and space. Gave a future card as a fallback!!"
   );
   return {
-    type: CardTypes.future,
+    type: CardType.future,
     knownBy: [forPlayer],
   };
 };
