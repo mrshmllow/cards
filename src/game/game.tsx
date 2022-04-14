@@ -13,7 +13,7 @@ import Deck from "./Deck";
 import Player from "./players/Player";
 import Opponent from "./players/Opponent";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
-import CardWorld from "./Cards_world";
+// import CardWorld from "./Cards_world";
 import Discard from "./Discard";
 
 const Game: React.FC<{}> = () => {
@@ -64,7 +64,7 @@ const Game: React.FC<{}> = () => {
       {/* <Header /> */}
 
       <Plane />
-      <CardWorld />
+      {/* <CardWorld /> */}
 
       <Player number={0} />
       <Opponent number={1} />
