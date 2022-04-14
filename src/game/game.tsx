@@ -15,6 +15,7 @@ import Opponent from "./players/Opponent";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 // import CardWorld from "./Cards_world";
 import Discard from "./Discard";
+import { AsciiEffect } from "three/examples/jsm/effects/AsciiEffect";
 
 const Game: React.FC<{}> = () => {
   const three = useThree();
@@ -30,6 +31,13 @@ const Game: React.FC<{}> = () => {
     three.camera.lookAt(new Vector3(0, 0, 0));
     three.gl.shadowMap.enabled = true;
     three.gl.shadowMap.type = PCFSoftShadowMap;
+
+    // const effect = new AsciiEffect(three.gl);
+    // effect.setSize(
+    //   three.gl.domElement.clientHeight,
+    //   three.gl.domElement.clientWidth
+    // );
+
     new OrbitControls(three.camera, three.gl.domElement);
 
     // const reference = lightRef.current as unknown as DirectionalLight;

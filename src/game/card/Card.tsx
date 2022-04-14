@@ -12,7 +12,8 @@ const Card: React.FC<{
   known: boolean;
   moving?: Vector3;
   index: number;
-}> = ({ type, moving, index, known }) => {
+  disabled: boolean;
+}> = ({ type, moving, index, known, disabled }) => {
   const three = useThree();
   const setTooltip = useStore.useSetTooltip();
   const turn = useStore.useTurn();
@@ -60,14 +61,14 @@ const Card: React.FC<{
   return (
     <>
       <group ref={ref}>
-        {hovering && <CardGui type={type} known={known} />}
+        {hovering && <CardGui type={type} known={known} disabled={disabled} />}
         <mesh
           onPointerEnter={() => setHovering(true)}
           onPointerLeave={() => setHovering(false)}
           onClick={(event) => {
             event.stopPropagation();
 
-            if (turn === 0) {
+            if (turn === 0 && !disabled) {
               if (type === CardType.skip) {
                 placeOnDeck(0, index);
                 nextTurn();
@@ -95,6 +96,7 @@ const Card: React.FC<{
             loop={false}
             playing={true}
             depthResolve={() => `/assets/card/depth/default0.png`}
+            color={disabled ? "grey" : undefined}
           />
         </mesh>
       </group>

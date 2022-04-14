@@ -15,6 +15,7 @@ const Player: React.FC<{ number: number }> = ({ number }) => {
           key={index}
           index={index}
           known={card.knownBy.includes(1)}
+          disabled={me.playedThisTurn.includes(card.type)}
           moving={
             new Vector3(
               me.cards.length % 2 === 0

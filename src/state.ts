@@ -11,6 +11,7 @@ export interface ICard {
 
 export interface Player {
   cards: ICard[];
+  playedThisTurn: CardType[];
 }
 
 interface GameState {
@@ -67,6 +68,7 @@ const useStoreBase = create<GameState>((set) => ({
   players: [
     {
       cards: [],
+      playedThisTurn: [],
     },
     {
       cards: [
@@ -75,12 +77,17 @@ const useStoreBase = create<GameState>((set) => ({
         //   knownBy: [0],
         // },
       ],
+      playedThisTurn: [],
     },
   ],
   placeOnDeck: (player, card) => {
     set(
       produce<GameState>((state) => {
         state.discard = state.players[player].cards[card].type;
+
+        state.players[player].playedThisTurn.push(
+          state.players[player].cards[card].type
+        );
         state.players[player].cards.splice(card, 1);
       })
     );
@@ -88,14 +95,16 @@ const useStoreBase = create<GameState>((set) => ({
 
   turn: 0,
   nextTurn: () => {
-    set((state) => {
-      if (state.turn + 1 === state.players.length) {
-        state.turn = 0;
-      } else {
-        state.turn += 1;
-      }
-      return state;
-    });
+    set(
+      produce<GameState>((state) => {
+        state.players[state.turn].playedThisTurn = [];
+        if (state.turn + 1 === state.players.length) {
+          state.turn = 0;
+        } else {
+          state.turn += 1;
+        }
+      })
+    );
   },
 
   pickupCard: (player, card) => {

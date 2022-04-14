@@ -4,10 +4,11 @@ import cardLore from "../../types/cards/card_lore";
 
 import { CardType } from "../../types/cards/card_type";
 
-const CardGui: React.FC<{ type: CardType; known: boolean }> = ({
-  type,
-  known,
-}) => {
+const CardGui: React.FC<{
+  type: CardType;
+  known: boolean;
+  disabled: boolean;
+}> = ({ type, known, disabled }) => {
   return (
     <Html
       className={`bg-black text-white flex flex-col text-center rounded-lg p-2`}
@@ -18,6 +19,11 @@ const CardGui: React.FC<{ type: CardType; known: boolean }> = ({
       <span className="text-xl">{cardLore[type].text}</span>
       {known && (
         <span className="text-xl">Your opponent knows you have this card.</span>
+      )}
+      {disabled && (
+        <span className="text-xl">
+          You already played one of these on your turn
+        </span>
       )}
     </Html>
   );
