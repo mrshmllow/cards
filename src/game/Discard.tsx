@@ -1,12 +1,13 @@
 import useStore from "../state";
 import cardAnimations from "../types/cards/card_animations";
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import { useLoader } from "@react-three/fiber";
-import { DoubleSide, NearestFilter, TextureLoader } from "three";
+import { DoubleSide, Group, NearestFilter, TextureLoader } from "three";
+import { degToRad } from "three/src/math/MathUtils";
 
 const Discard: React.FC<{}> = ({}) => {
   const type = useStore.useDiscard();
-  useEffect(() => console.log(type), [type]);
+  const ref = useRef(null!);
 
   const texture = useMemo(() => {
     const animation =
@@ -19,15 +20,27 @@ const Discard: React.FC<{}> = ({}) => {
     return texture;
   }, [type]);
 
-  return (
-    <mesh>
-      <planeGeometry args={[18 / 2, 25 / 2]} />
+  useEffect(() => {
+    if (type) {
+      const reference = ref.current as unknown as Group;
 
-      <meshLambertMaterial
-        args={[{ transparent: true, side: DoubleSide, alphaTest: 0.1 }]}
-        map={texture}
-      />
-    </mesh>
+      reference.rotation.set(degToRad(-90), 0, 0);
+    }
+  }, [type]);
+
+  return (
+    type && (
+      <group ref={ref}>
+        <mesh>
+          <planeGeometry args={[18 / 2, 25 / 2]} />
+
+          <meshLambertMaterial
+            args={[{ transparent: true, side: DoubleSide, alphaTest: 0.1 }]}
+            map={texture}
+          />
+        </mesh>
+      </group>
+    )
   );
 };
 export default Discard;
