@@ -30,6 +30,7 @@
     "auto-zustand-selectors-hook": "^1.0.1",
     "immer": "^9.0.12",
     "lodash": "^4.17.21",
+    "meshoptimizer": "^0.17.0",
     "pluralize": "^8.0.0",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
