@@ -1,6 +1,7 @@
 import { useMemo } from "react";
 import cardAnimations from "./types/cards/card_animations";
-import { useTexture } from "../riped/useTexture";
+import { useLoader } from "@react-three/fiber";
+import { TextureLoader } from "three";
 
 const ResouceLoader = () => {
   useMemo(() => {
@@ -15,7 +16,7 @@ const ResouceLoader = () => {
       }
     }
 
-    useTexture(resolves);
+    useLoader(TextureLoader, resolves);
   }, []);
 
   return <></>;
