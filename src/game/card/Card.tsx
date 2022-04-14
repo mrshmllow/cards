@@ -20,7 +20,7 @@ const Card: React.FC<{
   const placeOnDeck = useStore.usePlaceOnDeck();
   const addNext = useStore.useAddNext();
   const cards = useStore.usePlayers()[0].cards;
-  const ref = useRef();
+  const ref = useRef(null!);
   const refrence = ref.current as unknown as Group | undefined;
   const [hovering, setHovering] = useState(false);
 

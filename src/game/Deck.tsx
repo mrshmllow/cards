@@ -8,7 +8,7 @@ import { Html } from "@react-three/drei/web/Html";
 import pluralize from "pluralize";
 
 const Deck: React.FC<{}> = () => {
-  const ref = useRef();
+  const ref = useRef(null!);
   const setTooltip = useStore.useSetTooltip();
   const pickupCard = useStore.usePickupCard();
   const turn = useStore.useTurn();

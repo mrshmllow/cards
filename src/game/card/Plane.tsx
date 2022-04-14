@@ -3,7 +3,7 @@ import { DoubleSide, Mesh } from "three";
 import { degToRad } from "three/src/math/MathUtils";
 
 const Plane = () => {
-  const ref = useRef();
+  const ref = useRef(null!);
 
   useEffect(() => {
     const reference = ref.current as unknown as Mesh;

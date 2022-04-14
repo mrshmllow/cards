@@ -4,7 +4,7 @@ import useStore from "../../state";
 
 const Header: React.FC = () => {
   const turn = useStore.useTurn();
-  const ref = useRef();
+  const ref = useRef(null!);
 
   return (
     <>

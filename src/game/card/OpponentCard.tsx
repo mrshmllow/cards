@@ -11,7 +11,7 @@ const OpponentCard: React.FC<{
   moving?: Vector3;
   index: number;
 }> = ({ type, moving, known }) => {
-  const ref = useRef();
+  const ref = useRef(null!);
   const refrence = ref.current as unknown as
     | Mesh<BufferGeometry, Material | Material[]>
     | undefined;

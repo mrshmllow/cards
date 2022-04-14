@@ -22,7 +22,7 @@ const Game: React.FC<{}> = () => {
   const clearTooltip = useStore.useClearTooltip();
 
   const d = 10;
-  const lightRef = useRef();
+  const lightRef = useRef(null!);
 
   useEffect(() => {
     three.camera.position.set(0, 25, 60);
