@@ -56,7 +56,6 @@ const Playlist: React.FC<{
 
       for (let i = 0; i < animations[j].frames; i++) {
         if (animations[j].depthResolve !== undefined) {
-          console.log(animations[j].depthResolve!(i));
           const texture = loader.load(animations[j].depthResolve!(i));
           texture.magFilter = NearestFilter;
 

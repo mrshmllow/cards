@@ -1,12 +1,19 @@
 import { useThree } from "@react-three/fiber";
-import React, { useEffect } from "react";
-import { PCFSoftShadowMap, Vector3 } from "three";
+import React, { useEffect, useRef } from "react";
+import {
+  CameraHelper,
+  DirectionalLight,
+  PCFSoftShadowMap,
+  Vector3,
+} from "three";
 import useStore from "../state";
 import Plane from "./card/Plane";
 import Deck from "./Deck";
-import Header from "./gui/Header";
+// import Header from "./gui/Header";
 import Player from "./players/Player";
 import Opponent from "./players/Opponent";
+import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
+import CardWorld from "./Cards_world";
 
 const Game: React.FC<{}> = () => {
   const three = useThree();
@@ -14,7 +21,8 @@ const Game: React.FC<{}> = () => {
 
   const clearTooltip = useStore.useClearTooltip();
 
-  const d = 20;
+  const d = 10;
+  const lightRef = useRef();
 
   useEffect(() => {
     three.camera.position.set(0, 25, 60);
@@ -22,6 +30,13 @@ const Game: React.FC<{}> = () => {
     three.camera.lookAt(new Vector3(0, 0, 0));
     three.gl.shadowMap.enabled = true;
     three.gl.shadowMap.type = PCFSoftShadowMap;
+    new OrbitControls(three.camera, three.gl.domElement);
+
+    const reference = lightRef.current as unknown as DirectionalLight;
+    if (reference) {
+      const helper = new CameraHelper(reference.shadow.camera);
+      three.scene.add(helper);
+    }
 
     document.addEventListener("mousemove", () => {
       if (three.raycaster.intersectObjects(three.scene.children).length === 0)
@@ -42,11 +57,13 @@ const Game: React.FC<{}> = () => {
         shadow-camera-right={d}
         shadow-camera-top={d}
         shadow-camera-bottom={-d}
+        ref={lightRef}
       />
       <Deck />
-      <Header />
+      {/* <Header /> */}
 
       <Plane />
+      <CardWorld />
 
       <Player number={0} />
       <Opponent number={1} />

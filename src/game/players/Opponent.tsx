@@ -73,8 +73,8 @@ const Opponent: React.FC<{ number: number }> = ({ number }) => {
               me.cards.length % 2 === 0
                 ? (index - middleOfArray(me.cards)) * 9.5 + 9.5 / 2
                 : (index - middleOfArray(me.cards)) * 9.5,
-              0,
-              -23 * 2
+              6.3,
+              -23
             )
           }
         />
