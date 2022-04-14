@@ -9,10 +9,7 @@ const ResouceLoader = () => {
     for (let i = 0; i < animations.length; i++) {
       const [_index, animation] = animations[i];
 
-      console.log(animation);
-
       for (let j = 0; j < animation.frames; j++) {
-        // console.log(index, animation.resolve(j));
         useLoader(TextureLoader, animation.resolve(j));
         if (animation.depthResolve)
           useLoader(TextureLoader, animation.depthResolve(j));
