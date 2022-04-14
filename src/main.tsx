@@ -5,6 +5,7 @@ import { Canvas } from "@react-three/fiber";
 import { PerspectiveCamera, WebGLRenderer } from "three";
 import { Suspense } from "react";
 import ResouceLoader from "./ResourceLoader";
+import { Html } from "@react-three/drei/web/Html";
 
 const World: React.FC = () => {
   return (
@@ -24,7 +25,13 @@ const World: React.FC = () => {
         })
       }
     >
-      <Suspense fallback={null}>
+      <Suspense
+        fallback={
+          <Html className="text-white">
+            <span>Loading a billion textures Wait pls</span>
+          </Html>
+        }
+      >
         <ResouceLoader />
         <Game />
       </Suspense>
