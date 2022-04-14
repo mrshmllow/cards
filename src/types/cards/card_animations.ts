@@ -13,6 +13,7 @@ const cardAnimations: {
     frame: 0,
     frames: 1,
     resolve: (frame) => `/assets/card/default${frame}.png`,
+    depthResolve: (frame) => `/assets/card/depth/default${frame}.png`,
   },
   unturn: {
     frame: 0,
