@@ -1,14 +1,9 @@
 import { useEffect, useMemo, useState } from "react";
 import { DoubleSide, NearestFilter, Texture, TextureLoader } from "three";
+import { IAnimation } from "../types/cards/card_animations";
 
 const Playlist: React.FC<{
-  animations: {
-    frames: number;
-    frame: number;
-    resolve: (frame: number) => string;
-    depthResolve?: (frame: number) => string;
-    speed?: number;
-  }[];
+  animations: IAnimation[];
   depthResolve?: () => string;
   loop: boolean;
   playing: boolean;

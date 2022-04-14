@@ -1,11 +1,13 @@
+export interface IAnimation {
+  frames: number;
+  frame: number;
+  resolve: (frame: number) => string;
+  depthResolve?: (frame: number) => string;
+  speed?: number;
+}
+
 const cardAnimations: {
-  [key: string]: {
-    frames: number;
-    frame: number;
-    resolve: (frame: number) => string;
-    depthResolve?: (frame: number) => string;
-    speed?: number;
-  };
+  [key: string]: IAnimation;
 } = {
   default: {
     frame: 0,

@@ -6,6 +6,7 @@ import useStore from "../state";
 import { getNextCard } from "../helpers/helper";
 import { Html } from "@react-three/drei/web/Html";
 import pluralize from "pluralize";
+import cardAnimations from "../types/cards/card_animations";
 
 const Deck: React.FC<{}> = () => {
   const ref = useRef(null!);
@@ -31,7 +32,7 @@ const Deck: React.FC<{}> = () => {
 
   return (
     <>
-      <group ref={ref}>
+      <group ref={ref} position={new Vector3(-(18 / 2), 0, 0)}>
         <Html
           className="text-white text-7xl flex flex-col"
           transform
@@ -57,11 +58,9 @@ const Deck: React.FC<{}> = () => {
           <planeGeometry args={[18 / 2, 25 / 2]} />
 
           <Animation
-            frame={0}
-            frames={1}
-            resolve={(frame) => `/assets/card/default${frame}.png`}
             loop={false}
             playing={true}
+            animation={cardAnimations["default"]}
           />
         </mesh>
       </group>

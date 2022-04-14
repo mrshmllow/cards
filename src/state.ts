@@ -38,6 +38,8 @@ interface GameState {
   decrementSkips: () => void;
   addNext: (forPlayer: number) => void;
   shiftNext: () => void;
+
+  discard: CardTypes | null;
 }
 
 const useStoreBase = create<GameState>((set) => ({
@@ -78,6 +80,7 @@ const useStoreBase = create<GameState>((set) => ({
   placeOnDeck: (player, card) => {
     set(
       produce<GameState>((state) => {
+        state.discard = state.players[player].cards[card].type;
         state.players[player].cards.splice(card, 1);
       })
     );
@@ -151,6 +154,8 @@ const useStoreBase = create<GameState>((set) => ({
       })
     );
   },
+
+  discard: null,
 }));
 
 const useStore = createSelectorHooks(useStoreBase);
