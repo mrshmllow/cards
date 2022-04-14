@@ -4,6 +4,7 @@ import "./style.css";
 import { Canvas } from "@react-three/fiber";
 import { PerspectiveCamera, WebGLRenderer } from "three";
 import { Suspense } from "react";
+import ResouceLoader from "./ResourceLoader";
 
 const World: React.FC = () => {
   return (
@@ -24,6 +25,7 @@ const World: React.FC = () => {
       }
     >
       <Suspense fallback={null}>
+        <ResouceLoader />
         <Game />
       </Suspense>
     </Canvas>
