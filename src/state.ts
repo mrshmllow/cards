@@ -7,6 +7,7 @@ import rawNext from "./helpers/rawNext";
 export interface ICard {
   type: CardType;
   knownBy: number[];
+  id: string;
 }
 
 export interface Player {

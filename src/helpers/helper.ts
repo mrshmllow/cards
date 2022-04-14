@@ -1,6 +1,7 @@
 import useStore, { ICard } from "../state";
 import { CardType } from "../types/cards/card_type";
 import rawNext from "./rawNext";
+import { v4 as uuidv4 } from "uuid";
 
 const { decrementDeck, decrementExplosions, shiftNext, players } =
   useStore.getState();
@@ -33,6 +34,7 @@ export const getNextCard = (
     return {
       type: CardType.explosion,
       knownBy: [forPlayer],
+      id: uuidv4(),
     };
   } else {
     return rawNext(forPlayer);

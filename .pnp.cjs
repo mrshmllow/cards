@@ -42,6 +42,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/react", "npm:18.0.4"],\
             ["@types/react-dom", "npm:18.0.0"],\
             ["@types/three", "npm:0.139.0"],\
+            ["@types/uuid", "npm:8.3.4"],\
             ["@vitejs/plugin-react", "npm:1.3.1"],\
             ["auto-zustand-selectors-hook", "virtual:a4433e3ba641c12161d7bd6d0e50f29bc8c5f3e55647a50e657f9b2604e8a3923e257764306b24858a9ba1fc0843fa722531bb48bd20a5b40efab512ba244eb8#npm:1.0.1"],\
             ["autoprefixer", "virtual:a4433e3ba641c12161d7bd6d0e50f29bc8c5f3e55647a50e657f9b2604e8a3923e257764306b24858a9ba1fc0843fa722531bb48bd20a5b40efab512ba244eb8#npm:10.4.4"],\
@@ -56,6 +57,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["tailwindcss-image-rendering", "npm:1.0.2"],\
             ["three", "npm:0.139.2"],\
             ["typescript", "patch:typescript@npm%3A4.6.3#~builtin<compat/typescript>::version=4.6.3&hash=bda367"],\
+            ["uuid", "npm:8.3.2"],\
             ["vite", "virtual:a4433e3ba641c12161d7bd6d0e50f29bc8c5f3e55647a50e657f9b2604e8a3923e257764306b24858a9ba1fc0843fa722531bb48bd20a5b40efab512ba244eb8#npm:2.9.4"],\
             ["zustand", "virtual:a4433e3ba641c12161d7bd6d0e50f29bc8c5f3e55647a50e657f9b2604e8a3923e257764306b24858a9ba1fc0843fa722531bb48bd20a5b40efab512ba244eb8#npm:3.7.2"]\
           ],\
@@ -956,6 +958,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["@types/uuid", [\
+        ["npm:8.3.4", {\
+          "packageLocation": "./.yarn/cache/@types-uuid-npm-8.3.4-7547f4402c-6f11f3ff70.zip/node_modules/@types/uuid/",\
+          "packageDependencies": [\
+            ["@types/uuid", "npm:8.3.4"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["@use-gesture/core", [\
         ["npm:10.2.11", {\
           "packageLocation": "./.yarn/cache/@use-gesture-core-npm-10.2.11-b43df75360-8631cabe6d.zip/node_modules/@use-gesture/core/",\
@@ -1317,6 +1328,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/react", "npm:18.0.4"],\
             ["@types/react-dom", "npm:18.0.0"],\
             ["@types/three", "npm:0.139.0"],\
+            ["@types/uuid", "npm:8.3.4"],\
             ["@vitejs/plugin-react", "npm:1.3.1"],\
             ["auto-zustand-selectors-hook", "virtual:a4433e3ba641c12161d7bd6d0e50f29bc8c5f3e55647a50e657f9b2604e8a3923e257764306b24858a9ba1fc0843fa722531bb48bd20a5b40efab512ba244eb8#npm:1.0.1"],\
             ["autoprefixer", "virtual:a4433e3ba641c12161d7bd6d0e50f29bc8c5f3e55647a50e657f9b2604e8a3923e257764306b24858a9ba1fc0843fa722531bb48bd20a5b40efab512ba244eb8#npm:10.4.4"],\
@@ -1331,6 +1343,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["tailwindcss-image-rendering", "npm:1.0.2"],\
             ["three", "npm:0.139.2"],\
             ["typescript", "patch:typescript@npm%3A4.6.3#~builtin<compat/typescript>::version=4.6.3&hash=bda367"],\
+            ["uuid", "npm:8.3.2"],\
             ["vite", "virtual:a4433e3ba641c12161d7bd6d0e50f29bc8c5f3e55647a50e657f9b2604e8a3923e257764306b24858a9ba1fc0843fa722531bb48bd20a5b40efab512ba244eb8#npm:2.9.4"],\
             ["zustand", "virtual:a4433e3ba641c12161d7bd6d0e50f29bc8c5f3e55647a50e657f9b2604e8a3923e257764306b24858a9ba1fc0843fa722531bb48bd20a5b40efab512ba244eb8#npm:3.7.2"]\
           ],\
@@ -3679,6 +3692,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/utility-types-npm-3.10.0-747e7c6549-8f274415c6.zip/node_modules/utility-types/",\
           "packageDependencies": [\
             ["utility-types", "npm:3.10.0"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["uuid", [\
+        ["npm:8.3.2", {\
+          "packageLocation": "./.yarn/cache/uuid-npm-8.3.2-eca0baba53-5575a8a75c.zip/node_modules/uuid/",\
+          "packageDependencies": [\
+            ["uuid", "npm:8.3.2"]\
           ],\
           "linkType": "HARD"\
         }]\

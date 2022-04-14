@@ -12,7 +12,7 @@ const Player: React.FC<{ number: number }> = ({ number }) => {
       {me.cards.map((card, index) => (
         <Card
           type={card.type}
-          key={index}
+          key={card.id}
           index={index}
           known={card.knownBy.includes(1)}
           disabled={me.playedThisTurn.includes(card.type)}

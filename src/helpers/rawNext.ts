@@ -1,7 +1,9 @@
+import { ICard } from "../state";
 import cardChances from "../types/cards/card_chances";
 import { CardType } from "../types/cards/card_type";
+import { v4 as uuidv4 } from "uuid";
 
-const rawNext = (forPlayer: number) => {
+const rawNext = (forPlayer: number): ICard => {
   const weights: number[] = [];
 
   for (let i = 0; i < cardChances.length; i++) {
@@ -21,6 +23,7 @@ const rawNext = (forPlayer: number) => {
           Math.floor(Math.random() * value.cards.length)
         ] as CardType,
         knownBy: [forPlayer],
+        id: uuidv4(),
       };
     }
   }
@@ -30,6 +33,7 @@ const rawNext = (forPlayer: number) => {
   return {
     type: CardType.future,
     knownBy: [forPlayer],
+    id: uuidv4(),
   };
 };
 
