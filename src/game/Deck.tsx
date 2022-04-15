@@ -6,7 +6,8 @@ import useStore from "../state";
 import { getNextCard } from "../helpers/helper";
 import { Html } from "@react-three/drei/web/Html";
 import pluralize from "pluralize";
-import cardAnimations from "../types/cards/card_animations";
+import atlasJSON from "../../public/card.json";
+import { AsepriteAtlas } from "../types/aseprite";
 
 const Deck: React.FC<{}> = () => {
   const ref = useRef(null!);
@@ -32,7 +33,7 @@ const Deck: React.FC<{}> = () => {
 
   return (
     <>
-      <group ref={ref} position={new Vector3(-(18 / 2), 0, 0)}>
+      <group ref={ref} position={new Vector3(-(18 / 2), 2, 0)}>
         <Html
           className="text-white text-7xl flex flex-col"
           transform
@@ -58,9 +59,11 @@ const Deck: React.FC<{}> = () => {
           <planeGeometry args={[18 / 2, 25 / 2]} />
 
           <Animation
-            loop={false}
+            loop={true}
             playing={true}
-            animation={cardAnimations["default"]}
+            // animation={cardAnimations["default"]}
+            atlas={atlasJSON as unknown as AsepriteAtlas}
+            tagName="future"
           />
         </mesh>
       </group>

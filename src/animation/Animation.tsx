@@ -10,13 +10,15 @@ import {
   MeshLambertMaterial,
   MeshLambertMaterialParameters,
   NearestFilter,
+  RepeatWrapping,
   TextureLoader,
 } from "three";
-import { IAnimation } from "../types/cards/card_animations";
+import { AsepriteAtlas } from "../types/aseprite";
 
 const Animation: React.FC<
   {
-    animation: IAnimation;
+    atlas: AsepriteAtlas;
+    tagName: string;
     playing: boolean;
     loop: boolean;
   } & ExtendedColors<
@@ -25,44 +27,57 @@ const Animation: React.FC<
       NodeProps<MeshLambertMaterial, [MeshLambertMaterialParameters]>
     >
   >
-> = ({ playing, loop, animation, ...props }) => {
-  const textures = useMemo(() => {
-    const textures = [];
-    for (let i = 0; i < animation.frames; i++) {
-      const texture = useLoader(TextureLoader, animation.resolve(i));
-      texture.magFilter = NearestFilter;
+> = ({ playing, tagName, loop, atlas, ...props }) => {
+  const tilesH = useMemo(() => Object.keys(atlas.frames).length, [atlas]);
+  const tag = useMemo(
+    () => atlas.meta.frameTags.find((tag) => tag.name === tagName)!,
+    [atlas]
+  );
+  const texture = useMemo(() => {
+    const image = useLoader(TextureLoader, atlas.meta.image);
+    image.magFilter = NearestFilter;
+    image.wrapS = RepeatWrapping;
+    image.wrapT = RepeatWrapping;
 
-      textures.push(texture);
-    }
+    image.repeat.set(1 / tilesH, 1);
 
-    return textures;
+    return image;
   }, []);
 
-  const [frame, setFrame] = useState(animation.frame);
+  const [frame, setFrame] = useState(tag.from);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      if (playing) {
-        setFrame((frame) => {
-          if (frame + 1 === animation.frames) {
-            if (loop) {
-              return 0;
-            }
-          } else {
-            return frame + 1;
-          }
-          return frame;
-        });
-      }
-    }, 100);
+    const tagName =
+      tag.to === 0
+        ? `card #${tag.name}.ase`
+        : `card #${tag.name} ${frame - tag.from}.ase`;
 
-    return () => clearInterval(interval);
-  }, []);
+    const timeout = setTimeout(
+      () => {
+        if (playing) {
+          setFrame((frame) => {
+            if (frame === tag.to) {
+              if (loop) {
+                return tag.from;
+              }
+            } else {
+              return frame + 1;
+            }
+            return frame;
+          });
+        }
+      },
+      atlas.frames[tagName] !== undefined ? atlas.frames[tagName].duration : 100
+    );
+
+    return () => clearTimeout(timeout);
+  }, [frame]);
 
   return (
     <meshLambertMaterial
       args={[{ transparent: true, side: DoubleSide }]}
-      map={textures[frame]}
+      map={texture}
+      map-offset-x={(frame % tilesH) / tilesH}
       {...props}
     />
   );
