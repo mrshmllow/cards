@@ -1,23 +1,19 @@
-import {
-  ExtendedColors,
-  NodeProps,
-  Overwrite,
-  useLoader,
-} from "@react-three/fiber";
+import { ExtendedColors, NodeProps, Overwrite } from "@react-three/fiber";
 import { useEffect, useMemo, useState } from "react";
 import {
   DoubleSide,
   MeshLambertMaterial,
   MeshLambertMaterialParameters,
   NearestFilter,
-  Texture,
+  RepeatWrapping,
   TextureLoader,
 } from "three";
-import { IAnimation } from "../types/cards/card_animations";
+import { AsepriteAtlas } from "../types/aseprite";
 
 const Playlist: React.FC<
   {
-    animations: IAnimation[];
+    atlas: AsepriteAtlas;
+    tags: string[];
     depthResolve?: () => string;
     loop: boolean;
     playing: boolean;
@@ -27,109 +23,91 @@ const Playlist: React.FC<
       NodeProps<MeshLambertMaterial, [MeshLambertMaterialParameters]>
     >
   >
-> = ({ animations, loop, playing, depthResolve, ...props }) => {
-  const [state, setState] = useState<{ current: number; frame: number }>({
-    current: 0,
-    frame: 0,
+> = ({ loop, tags, atlas, playing, depthResolve, ...props }) => {
+  const tilesH = useMemo(() => Object.keys(atlas.frames).length, [atlas]);
+  const [state, setState] = useState<{ tagIndex: number; frame: number }>({
+    tagIndex: 0,
+    frame: atlas.meta.frameTags.find((tag) => tag.name === tags[0])!.from,
   });
 
-  const textures = useMemo(() => {
-    const animationTextures: {
-      [key: number]: Texture[];
-    } = [];
-    for (let j = 0; j < animations.length; j++) {
-      const textures = [];
-      for (let i = 0; i < animations[j].frames; i++) {
-        const texture = useLoader(TextureLoader, animations[j].resolve(i));
-        texture.magFilter = NearestFilter;
+  const tag = useMemo(
+    () =>
+      atlas.meta.frameTags.find((tag) => tag.name === tags[state.tagIndex])!,
+    [state.tagIndex]
+  );
 
-        textures.push(texture);
-      }
+  const texture = useMemo(() => {
+    const loader = new TextureLoader();
+    const image = loader.load(atlas.meta.image);
+    image.magFilter = NearestFilter;
+    image.wrapS = RepeatWrapping;
+    image.wrapT = RepeatWrapping;
 
-      animationTextures[j] = textures;
-    }
+    image.repeat.set(1 / tilesH, 1);
 
-    return animationTextures;
-  }, []);
-
-  const defaultDepth = useMemo(() => {
-    if (depthResolve) {
-      const depth = useLoader(TextureLoader, depthResolve());
-      depth.magFilter = NearestFilter;
-      return depth;
-    }
-    return undefined;
-  }, []);
-
-  const depthTextures = useMemo(() => {
-    const depthMaps: {
-      [key: number]: Texture[];
-    } = [];
-    for (let j = 0; j < animations.length; j++) {
-      const depthTextures = [];
-
-      for (let i = 0; i < animations[j].frames; i++) {
-        if (animations[j].depthResolve !== undefined) {
-          const texture = useLoader(
-            TextureLoader,
-            animations[j].depthResolve!(i)
-          );
-          texture.magFilter = NearestFilter;
-
-          depthTextures.push(texture);
-        }
-      }
-
-      depthMaps[j] = depthTextures;
-    }
-    return depthMaps;
+    return image;
   }, []);
 
   useEffect(() => {
-    const interval = setInterval(
+    const tagName =
+      tag.to === 0
+        ? `card #${tag.name}.ase`
+        : `card #${tag.name} ${state.frame - tag.from}.ase`;
+
+    const timeout = setInterval(
       () => {
         if (playing) {
-          setState(({ current, frame }) => {
-            if (frame + 1 === animations[current].frames) {
-              if (!(current + 1 === animations.length)) {
+          setState(({ tagIndex, frame }) => {
+            console.log(frame, tag.to);
+            if (frame === tag.to) {
+              // amaybe add +
+              if (
+                !(tagIndex + 1 === tags.length)
+                // (tagIndex === 0 && tags.length > 0)
+              ) {
                 return {
-                  current: current + 1,
-                  frame: 0,
+                  tagIndex: tagIndex + 1,
+                  frame: atlas.meta.frameTags.find(
+                    (tag) => tag.name === tags[tagIndex + 1]
+                  )!.from,
                 };
-              } else {
-                if (loop) {
-                  return {
-                    current: 0,
-                    frame: 0,
-                  };
-                }
+              } else if (loop) {
+                return {
+                  tagIndex: 0,
+                  frame: atlas.meta.frameTags.find(
+                    (tag) => tag.name === tags[0]
+                  )!.from,
+                };
               }
             } else {
               return {
-                current,
+                tagIndex,
                 frame: frame + 1,
               };
             }
-            return { current, frame };
+            playing = false;
+            return { tagIndex, frame };
           });
         }
       },
-      animations[state.current].speed ? animations[state.current].speed : 100
+      atlas.frames[tagName] !== undefined ? atlas.frames[tagName].duration : 100
+      // 100
     );
 
-    return () => clearInterval(interval);
-  }, [state.current]);
+    return () => clearInterval(timeout);
+  }, [state.tagIndex]);
 
   return (
     <>
       <meshLambertMaterial
         args={[{ transparent: true, side: DoubleSide, alphaTest: 0.1 }]}
-        map={textures[state.current][state.frame]}
-        alphaMap={
-          animations[state.current].depthResolve !== undefined
-            ? depthTextures[state.current][state.frame]
-            : defaultDepth
-        }
+        map={texture}
+        map-offset-x={(state.frame % tilesH) / tilesH}
+        // alphaMap={
+        //   animations[state.current].depthResolve !== undefined
+        //     ? depthTextures[state.current][state.frame]
+        //     : defaultDepth
+        // }
         {...props}
       />
     </>

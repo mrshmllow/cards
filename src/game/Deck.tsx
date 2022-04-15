@@ -63,7 +63,7 @@ const Deck: React.FC<{}> = () => {
             playing={true}
             // animation={cardAnimations["default"]}
             atlas={atlasJSON as unknown as AsepriteAtlas}
-            tagName="future"
+            tagName="default"
           />
         </mesh>
       </group>

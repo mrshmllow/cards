@@ -3,9 +3,10 @@ import { useEffect, useRef, useState } from "react";
 import { Group, Vector3 } from "three";
 import Playlist from "../../animation/Playlist";
 import useStore from "../../state";
-import cardAnimations from "../../types/cards/card_animations";
 import { CardType } from "../../types/cards/card_type";
 import CardGui from "./CardGui";
+import { AsepriteAtlas } from "../../types/aseprite";
+import atlasJSON from "../../../public/card.json";
 
 const Card: React.FC<{
   type: CardType;
@@ -84,16 +85,8 @@ const Card: React.FC<{
           <planeGeometry args={[18 / 2, 25 / 2]} />
 
           <Playlist
-            animations={[
-              cardAnimations["unturn"],
-              type === CardType.explosion
-                ? cardAnimations["explosion"]
-                : type === CardType.future
-                ? cardAnimations["future"]
-                : type === CardType.skip
-                ? cardAnimations["skip"]
-                : cardAnimations["default"],
-            ]}
+            tags={["unturn", type.toString()]}
+            atlas={atlasJSON as unknown as AsepriteAtlas}
             loop={false}
             playing={true}
             depthResolve={() => `/assets/card/depth/default0.png`}

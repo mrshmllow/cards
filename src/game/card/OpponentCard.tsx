@@ -2,8 +2,9 @@ import { useFrame } from "@react-three/fiber";
 import { useRef } from "react";
 import { BufferGeometry, Material, Mesh, Vector3 } from "three";
 import Playlist from "../../animation/Playlist";
-import cardAnimations from "../../types/cards/card_animations";
 import { CardType } from "../../types/cards/card_type";
+import { AsepriteAtlas } from "../../types/aseprite";
+import atlasJSON from "../../../public/card.json";
 
 const OpponentCard: React.FC<{
   type: CardType;
@@ -26,17 +27,23 @@ const OpponentCard: React.FC<{
         <planeGeometry args={[18 / 2, 25 / 2]} />
 
         <Playlist
-          animations={[
+          // animations={[
+          //   known || type === CardType.explosion
+          //     ? type === CardType.explosion
+          //       ? cardAnimations["explosion"]
+          //       : type === CardType.future
+          //       ? cardAnimations["future"]
+          //       : type === CardType.skip
+          //       ? cardAnimations["skip"]
+          //       : cardAnimations["default"]
+          //     : cardAnimations["default"],
+          // ]}
+          tags={
             known || type === CardType.explosion
-              ? type === CardType.explosion
-                ? cardAnimations["explosion"]
-                : type === CardType.future
-                ? cardAnimations["future"]
-                : type === CardType.skip
-                ? cardAnimations["skip"]
-                : cardAnimations["default"]
-              : cardAnimations["default"],
-          ]}
+              ? ["unturn", type.toString()]
+              : ["default"]
+          }
+          atlas={atlasJSON as unknown as AsepriteAtlas}
           loop={false}
           playing={true}
         />
