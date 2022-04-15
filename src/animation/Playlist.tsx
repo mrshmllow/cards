@@ -58,7 +58,6 @@ const Playlist: React.FC<
       () => {
         if (playing) {
           setState(({ tagIndex, frame }) => {
-            console.log(frame, tag.to);
             if (frame === tag.to) {
               // amaybe add +
               if (
