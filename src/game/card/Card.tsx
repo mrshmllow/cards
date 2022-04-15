@@ -6,7 +6,7 @@ import useStore from "../../state";
 import { CardType } from "../../types/cards/card_type";
 import CardGui from "./CardGui";
 import { AsepriteAtlas } from "../../types/aseprite";
-import atlasJSON from "../../../public/card.json";
+import atlasJSON from "../../../assets/card/card.json";
 
 const Card: React.FC<{
   type: CardType;

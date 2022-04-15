@@ -1,6 +1,8 @@
 import { useThree } from "@react-three/fiber";
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import {
+  CameraHelper,
+  DirectionalLight,
   // CameraHelper,
   // DirectionalLight,
   PCFSoftShadowMap,
@@ -19,6 +21,7 @@ import Discard from "./Discard";
 const Game: React.FC<{}> = () => {
   const three = useThree();
   const next = useStore.useDeck().next;
+  const lightRef = useRef(null!);
 
   const clearTooltip = useStore.useClearTooltip();
 
@@ -39,11 +42,11 @@ const Game: React.FC<{}> = () => {
 
     new OrbitControls(three.camera, three.gl.domElement);
 
-    // const reference = lightRef.current as unknown as DirectionalLight;
-    // if (reference) {
-    //   const helper = new CameraHelper(reference.shadow.camera);
-    //   three.scene.add(helper);
-    // }
+    const reference = lightRef.current as unknown as DirectionalLight;
+    if (reference) {
+      const helper = new CameraHelper(reference.shadow.camera);
+      three.scene.add(helper);
+    }
 
     document.addEventListener("mousemove", () => {
       if (three.raycaster.intersectObjects(three.scene.children).length === 0)

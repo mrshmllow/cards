@@ -6,7 +6,7 @@ import useStore from "../state";
 import { getNextCard } from "../helpers/helper";
 import { Html } from "@react-three/drei/web/Html";
 import pluralize from "pluralize";
-import atlasJSON from "../../public/card.json";
+import atlasJSON from "../../assets/card/card.json";
 import { AsepriteAtlas } from "../types/aseprite";
 
 const Deck: React.FC<{}> = () => {

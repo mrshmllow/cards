@@ -4,7 +4,7 @@ import { BufferGeometry, Material, Mesh, Vector3 } from "three";
 import Playlist from "../../animation/Playlist";
 import { CardType } from "../../types/cards/card_type";
 import { AsepriteAtlas } from "../../types/aseprite";
-import atlasJSON from "../../../public/card.json";
+import atlasJSON from "../../../assets/card/card.json";
 
 const OpponentCard: React.FC<{
   type: CardType;
