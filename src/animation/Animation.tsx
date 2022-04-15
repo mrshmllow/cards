@@ -1,9 +1,4 @@
-import {
-  ExtendedColors,
-  NodeProps,
-  Overwrite,
-  useLoader,
-} from "@react-three/fiber";
+import { ExtendedColors, NodeProps, Overwrite } from "@react-three/fiber";
 import { useEffect, useMemo, useState } from "react";
 import {
   DoubleSide,
@@ -34,7 +29,8 @@ const Animation: React.FC<
     [atlas]
   );
   const texture = useMemo(() => {
-    const image = useLoader(TextureLoader, atlas.meta.image);
+    const loader = new TextureLoader();
+    const image = loader.load(atlas.meta.image);
     image.magFilter = NearestFilter;
     image.wrapS = RepeatWrapping;
     image.wrapT = RepeatWrapping;
