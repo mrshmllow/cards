@@ -1,7 +1,7 @@
 import useStore, { ICard } from "../state";
 import { CardType } from "../types/cards/card_type";
 import rawNext from "./rawNext";
-import { v4 as uuidv4 } from "uuid";
+import { generateUUID } from "three/src/math/MathUtils";
 
 const { decrementDeck, decrementExplosions, shiftNext, players } =
   useStore.getState();
@@ -25,7 +25,7 @@ export const getNextCard = (
     return next[0];
   }
 
-  let num = Math.floor(Math.random() * cards + 1);
+  const num = Math.floor(Math.random() * cards + 1);
 
   if (num <= players.length) {
     decrementDeck();
@@ -34,7 +34,7 @@ export const getNextCard = (
     return {
       type: CardType.explosion,
       knownBy: [forPlayer],
-      id: uuidv4(),
+      id: generateUUID(),
     };
   } else {
     return rawNext(forPlayer);

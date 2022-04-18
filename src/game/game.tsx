@@ -20,10 +20,11 @@ import Discard from "./Discard";
 
 const Game: React.FC<{}> = () => {
   const three = useThree();
-  const next = useStore.useDeck().next;
+  const { next, clearTooltip } = useStore((state) => ({
+    next: state.deck.next,
+    clearTooltip: state.clearTooltip,
+  }));
   const lightRef = useRef(null!);
-
-  const clearTooltip = useStore.useClearTooltip();
 
   const d = 10;
 
@@ -53,6 +54,7 @@ const Game: React.FC<{}> = () => {
         clearTooltip();
     });
   }, []);
+
   useEffect(() => {
     console.log("KNOWN NEXT:", next);
   }, [next]);

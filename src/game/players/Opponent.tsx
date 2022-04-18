@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import { Vector3 } from "three";
 import { middleOfArray } from "../../math";
 import useStore from "../../state";
@@ -8,18 +8,21 @@ import { CardType } from "../../types/cards/card_type";
 import { sleep } from "../../helpers/time";
 
 const Opponent: React.FC<{ number: number }> = ({ number }) => {
-  const me = useStore.usePlayers()[number];
-  const turn = useStore.useTurn();
-  const pickupCard = useStore.usePickupCard();
-  const nextTurn = useStore.useNextTurn();
-  const placeOnDeck = useStore.usePlaceOnDeck();
-  const addNext = useStore.useAddNext();
-  const deck = useStore.useDeck();
+  const { turn, nextTurn, addNext, deck, placeOnDeck, me, pickupCard } =
+    useStore((state) => ({
+      me: state.players[number],
+      turn: state.turn,
+      pickupCard: state.pickupCard,
+      nextTurn: state.nextTurn,
+      placeOnDeck: state.placeOnDeck,
+      addNext: state.addNext,
+      deck: state.deck,
+    }));
 
   useEffect(() => {
     const effect = async () => {
       if (turn === number) {
-        let played: CardType[] = [];
+        const played: CardType[] = [];
 
         const pickup = () => {
           const card = getNextCard(deck.next, deck.cards, 1);

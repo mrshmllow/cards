@@ -3,6 +3,7 @@ import { Vector3 } from "three";
 import cardLore from "../../types/cards/card_lore";
 
 import { CardType } from "../../types/cards/card_type";
+import React from "react";
 
 const CardGui: React.FC<{
   type: CardType;

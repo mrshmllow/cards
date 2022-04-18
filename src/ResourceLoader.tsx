@@ -6,7 +6,7 @@ import { AsepriteAtlas } from "./types/aseprite";
 
 const paths = [(cardJSON as unknown as AsepriteAtlas).meta.image];
 
-const ResouceLoader = () => {
+const ResourceLoader = () => {
   useMemo(() => {
     useLoader(TextureLoader, paths);
   }, []);
@@ -14,4 +14,4 @@ const ResouceLoader = () => {
   return <></>;
 };
 
-export default ResouceLoader;
+export default ResourceLoader;

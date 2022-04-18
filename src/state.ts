@@ -1,5 +1,4 @@
 import create from "zustand";
-import { createSelectorHooks } from "auto-zustand-selectors-hook";
 import produce from "immer";
 import { CardType } from "./types/cards/card_type";
 import rawNext from "./helpers/rawNext";
@@ -10,7 +9,7 @@ export interface ICard {
   id: string;
 }
 
-export interface Player {
+export interface IPlayer {
   cards: ICard[];
   playedThisTurn: CardType[];
 }
@@ -23,7 +22,7 @@ interface GameState {
   setTooltip: (title: string, text: string) => void;
   clearTooltip: () => void;
 
-  players: [Player, Player];
+  players: [IPlayer, IPlayer];
   pickupCard: (player: number, card: ICard) => void;
   placeOnDeck: (player: number, card: number) => void;
   turn: number;
@@ -44,7 +43,7 @@ interface GameState {
   discard: CardType | null;
 }
 
-const useStoreBase = create<GameState>((set) => ({
+export const useStore = create<GameState>((set) => ({
   tooltip: {
     text: "",
     title: "",
@@ -168,5 +167,4 @@ const useStoreBase = create<GameState>((set) => ({
   discard: null,
 }));
 
-const useStore = createSelectorHooks(useStoreBase);
 export default useStore;

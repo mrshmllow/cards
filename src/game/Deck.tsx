@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { Group, Vector3 } from "three";
 import { degToRad } from "three/src/math/MathUtils";
 import Animation from "../animation/Animation";
@@ -11,11 +11,15 @@ import { AsepriteAtlas } from "../types/aseprite";
 
 const Deck: React.FC<{}> = () => {
   const ref = useRef(null!);
-  const setTooltip = useStore.useSetTooltip();
-  const pickupCard = useStore.usePickupCard();
-  const turn = useStore.useTurn();
-  const nextTurn = useStore.useNextTurn();
-  const deck = useStore.useDeck();
+  const { setTooltip, pickupCard, turn, nextTurn, deck } = useStore(
+    (state) => ({
+      deck: state.deck,
+      pickupCard: state.pickupCard,
+      turn: state.turn,
+      nextTurn: state.nextTurn,
+      setTooltip: state.setTooltip,
+    })
+  );
 
   useEffect(() => {
     const reference = ref.current as unknown as Group;

@@ -1,6 +1,6 @@
 import { useFrame } from "@react-three/fiber";
-import { useRef } from "react";
-import { BufferGeometry, Material, Mesh, Vector3 } from "three";
+import React, { useRef } from "react";
+import { Mesh, Vector3 } from "three";
 import Playlist from "../../animation/Playlist";
 import { CardType } from "../../types/cards/card_type";
 import { AsepriteAtlas } from "../../types/aseprite";
@@ -13,12 +13,10 @@ const OpponentCard: React.FC<{
   index: number;
 }> = ({ type, moving, known }) => {
   const ref = useRef(null!);
-  const refrence = ref.current as unknown as
-    | Mesh<BufferGeometry, Material | Material[]>
-    | undefined;
+  const reference = ref.current as unknown as Mesh | undefined;
 
   useFrame(() => {
-    if (moving) refrence!.position.lerp(moving, 0.1);
+    if (moving) reference!.position.lerp(moving, 0.1);
   });
 
   return (

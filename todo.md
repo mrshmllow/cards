@@ -1,3 +1,0 @@
-# Todo
-
-- Make player ai

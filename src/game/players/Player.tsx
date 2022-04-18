@@ -1,11 +1,12 @@
 import React from "react";
 import { Vector3 } from "three";
 import { middleOfArray } from "../../math";
-import useStore from "../../state";
+import { useStore } from "../../state";
 import Card from "../card/Card";
+import shallow from "zustand/shallow";
 
 const Player: React.FC<{ number: number }> = ({ number }) => {
-  const me = useStore.usePlayers()[number];
+  const { me } = useStore((state) => ({ me: state.players[number] }), shallow);
 
   return (
     <>

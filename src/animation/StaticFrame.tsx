@@ -1,5 +1,5 @@
 import { ExtendedColors, NodeProps, Overwrite } from "@react-three/fiber";
-import { useMemo } from "react";
+import React, { useMemo } from "react";
 import {
   DoubleSide,
   MeshLambertMaterial,

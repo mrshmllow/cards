@@ -1,9 +1,9 @@
-import { useEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import useStore from "../../state";
 import { Html } from "@react-three/drei/web/Html";
 
 const Tooltip: React.FC = () => {
-  const tooltip = useStore.useTooltip();
+  const tooltip = useStore((state) => state.tooltip);
   const ref = useRef(null);
 
   useEffect(() => {

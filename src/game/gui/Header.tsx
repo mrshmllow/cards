@@ -3,7 +3,7 @@ import { useRef } from "react";
 import useStore from "../../state";
 
 const Header: React.FC = () => {
-  const turn = useStore.useTurn();
+  const turn = useStore((state) => state.turn);
   const ref = useRef(null!);
 
   return (

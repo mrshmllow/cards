@@ -1,7 +1,7 @@
 import { ICard } from "../state";
 import cardChances from "../types/cards/card_chances";
 import { CardType } from "../types/cards/card_type";
-import { v4 as uuidv4 } from "uuid";
+import { generateUUID } from "three/src/math/MathUtils";
 
 const rawNext = (forPlayer: number): ICard => {
   const weights: number[] = [];
@@ -23,7 +23,7 @@ const rawNext = (forPlayer: number): ICard => {
           Math.floor(Math.random() * value.cards.length)
         ] as CardType,
         knownBy: [forPlayer],
-        id: uuidv4(),
+        id: generateUUID(),
       };
     }
   }
@@ -33,7 +33,7 @@ const rawNext = (forPlayer: number): ICard => {
   return {
     type: CardType.future,
     knownBy: [forPlayer],
-    id: uuidv4(),
+    id: generateUUID(),
   };
 };
 

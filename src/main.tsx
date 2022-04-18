@@ -3,9 +3,9 @@ import { createRoot } from "react-dom/client";
 import "./style.css";
 import { Canvas } from "@react-three/fiber";
 import { PerspectiveCamera, WebGLRenderer } from "three";
-import { Suspense } from "react";
-import ResouceLoader from "./ResourceLoader";
+import React, { Suspense } from "react";
 import { Html } from "@react-three/drei/web/Html";
+import ResourceLoader from "./ResourceLoader";
 
 const World: React.FC = () => {
   return (
@@ -32,7 +32,7 @@ const World: React.FC = () => {
           </Html>
         }
       >
-        <ResouceLoader />
+        <ResourceLoader />
         <Game />
       </Suspense>
     </Canvas>

@@ -1,5 +1,5 @@
 import { useFrame, useThree } from "@react-three/fiber";
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Group, Vector3 } from "three";
 import Playlist from "../../animation/Playlist";
 import useStore from "../../state";
@@ -16,14 +16,18 @@ const Card: React.FC<{
   disabled: boolean;
 }> = ({ type, moving, index, known, disabled }) => {
   const three = useThree();
-  const setTooltip = useStore.useSetTooltip();
-  const turn = useStore.useTurn();
-  const nextTurn = useStore.useNextTurn();
-  const placeOnDeck = useStore.usePlaceOnDeck();
-  const addNext = useStore.useAddNext();
-  const cards = useStore.usePlayers()[0].cards;
+  const { turn, addNext, nextTurn, placeOnDeck, setTooltip, cards } = useStore(
+    (state) => ({
+      setTooltip: state.setTooltip,
+      turn: state.turn,
+      nextTurn: state.nextTurn,
+      placeOnDeck: state.placeOnDeck,
+      addNext: state.addNext,
+      cards: state.players[0].cards,
+    })
+  );
   const ref = useRef(null!);
-  const refrence = ref.current as unknown as Group | undefined;
+  const reference = ref.current as unknown as Group | undefined;
   const [hovering, setHovering] = useState(false);
 
   useFrame(() => {
@@ -39,16 +43,16 @@ const Card: React.FC<{
       target.add(moving);
     }
 
-    refrence!.position.lerp(target, 0.1);
+    reference!.position.lerp(target, 0.1);
   });
 
   useEffect(() => {
-    if (refrence) {
+    if (reference) {
       if (type !== CardType.explosion) {
         if (hovering) {
-          refrence.lookAt(three.camera.position);
+          reference.lookAt(three.camera.position);
         } else {
-          refrence.rotation.set(0, 0, 0);
+          reference.rotation.set(0, 0, 0);
         }
         setTooltip("A card", "descriptions wip");
       }
@@ -56,7 +60,7 @@ const Card: React.FC<{
   }, [hovering]);
 
   useEffect(() => {
-    if (refrence) refrence.rotation.set(0, 0, 0);
+    if (reference) reference.rotation.set(0, 0, 0);
   }, [cards]);
 
   return (
